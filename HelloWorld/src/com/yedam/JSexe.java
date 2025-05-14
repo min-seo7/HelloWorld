@@ -87,7 +87,6 @@ public class JSexe {
 				break;
 			}
 			str += msg +", ";
-			System.out.println(str+"입니다."); 
 //			System.out.println("입력한 값은 " + msg);
 		}
 		//홍길동, 김민규, 최석영
