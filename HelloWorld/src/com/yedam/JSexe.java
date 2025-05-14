@@ -2,6 +2,7 @@ package com.yedam;
 
 public class JSexe {
 	public static void main(String[] args) {
+		//변경(로컬, git commit 충돌테스트)
 		//임의의 수를 생성. 1 ~ 100 사이의 임의의 값 생성.
 		// 1과 11사이의 수 생성
 		
@@ -14,7 +15,7 @@ public class JSexe {
 		
 	} // end of main
 
-	public static void test() {
+	public static void test() { 
 		int sum = 0;
 		// 1 ~10까지의 누적합.
 		for (int i = 1; i < 11; i++) {
