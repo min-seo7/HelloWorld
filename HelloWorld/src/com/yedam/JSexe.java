@@ -83,15 +83,20 @@ public class JSexe {
 		while (true) {
 			System.out.println("친구이름 입력. 종료하려면 quit 입력 >>");
 			String msg = scn.nextLine();
+			
 			if (msg.equals("quit")) { // equals비교.
 				break;
 			}
-			str += msg +", ";
+			if (msg.equals("")) {
+				str += msg;
+			}
+				
+			str += ","+ msg
 //			System.out.println("입력한 값은 " + msg);
+			System.out.println(str+".");		
 		}
 		//홍길동, 김민규, 최석영
 		//친구목록은 홍길동, 김민규, 최석영 입니다.
 		System.out.println(str+"입니다.");
 	}// end of test4.
-
 }// end of class.
