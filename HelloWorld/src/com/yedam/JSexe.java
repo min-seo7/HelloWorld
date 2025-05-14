@@ -14,7 +14,6 @@ public class JSexe {
 //		System.out.println(str2);
 //		System.out.println(str1.equals(str2)); // 문자비교시 equals( )사용.
 
-
 		// "30" vs 30
 		String str3 = "30";
 		int num3 = 30;
@@ -75,28 +74,26 @@ public class JSexe {
 		System.out.println("합계: " + sum + ",평균: " + avg);
 	}// end of test3.
 
-	
-	
 	public static void test4() {
 		Scanner scn = new Scanner(System.in);
-		String str = "친구목록은 ";   
+		String str = "";
 		while (true) {
 			System.out.println("친구이름 입력. 종료하려면 quit 입력 >>");
-			String msg = scn.nextLine();
-			
-			if (msg.equals("quit")) { // equals비교.
+			String name = scn.nextLine();
+
+			if (name.equals("quit")) { // equals비교.
 				break;
 			}
-			if (msg.equals("")) {
-				str += msg;
+			if (str.equals("")) {
+				str += name;
+			} else {
+				str += "," + name;
 			}
-				
-			str += ","+ msg
+
 //			System.out.println("입력한 값은 " + msg);
-			System.out.println(str+".");		
 		}
-		//홍길동, 김민규, 최석영
-		//친구목록은 홍길동, 김민규, 최석영 입니다.
-		System.out.println(str+"입니다.");
+		// 홍길동, 김민규, 최석영
+		// 친구목록은 홍길동, 김민규, 최석영 입니다.
+		System.out.println("친구목록은 " + str + " 입니다");
 	}// end of test4.
 }// end of class.
