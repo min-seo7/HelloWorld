@@ -89,8 +89,6 @@ public class JSexe {
 			} else {
 				str += "," + name;
 			}
-
-//			System.out.println("입력한 값은 " + msg);
 		}
 		// 홍길동, 김민규, 최석영
 		// 친구목록은 홍길동, 김민규, 최석영 입니다.
