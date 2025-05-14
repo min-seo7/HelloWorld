@@ -2,12 +2,12 @@ package com.yedam;
 
 public class JSexe {
 	public static void main(String[] args) {
-		//임의의 수를 생성. 1 ~ 10 사이의 임의의 값 생성.
+		//임의의 수를 생성. 1 ~ 100 사이의 임의의 값 생성.
 		// 1과 11사이의 수 생성
 		
 		int sum = 0;
 		for (int i = 1; i < 6; i++) {
-			int result = (int) (Math.random() * 10) + 1; //math.random   0 <= x < 1 [0과 1사이의 실수]
+			int result = (int) (Math.random() * 100) + 1; //math.random   0 <= x < 1 [0과 1사이의 실수]
 			sum += result;
 		}
 		System.out.println("결과: " + sum);
