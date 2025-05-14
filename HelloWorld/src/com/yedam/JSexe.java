@@ -75,11 +75,11 @@ public class JSexe {
 	}// end of test3.
 
 	public static void test4() {
-		Scanner scn = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);   //Scanner객체를 생성해서 scn변수에 할당. 
 		String str = "";
 		while (true) {
 			System.out.println("친구이름 입력. 종료하려면 quit 입력 >>");
-			String name = scn.nextLine();
+			String name = scn.nextLine();   //입력받은 값을 name 변수에 대입. 
 
 			if (name.equals("quit")) { // equals비교.
 				break;
