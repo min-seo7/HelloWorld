@@ -24,7 +24,8 @@ public class JSexe {
 
 		// test2(); //평균구하기
 		// test3(); //스캐너로 입력값 받기.
-		test4();
+		//test4(); //이름 출력
+		test5();
 
 	} // end of main
 
@@ -76,7 +77,7 @@ public class JSexe {
 
 	public static void test4() {
 		Scanner scn = new Scanner(System.in);   //Scanner객체를 생성해서 scn변수에 할당. 
-		String str = "";
+		String str = "친구목록은 ";
 		while (true) {
 			System.out.println("친구이름 입력. 종료하려면 quit 입력 >>");
 			String name = scn.nextLine();   //입력받은 값을 name 변수에 대입. 
@@ -84,7 +85,7 @@ public class JSexe {
 			if (name.equals("quit")) { // equals비교.
 				break;
 			}
-			if (str.equals("")) {
+			if (str.equals("친구목록은 ")) {
 				str += name;
 			} else {
 				str += "," + name;
@@ -92,6 +93,27 @@ public class JSexe {
 		}
 		// 홍길동, 김민규, 최석영
 		// 친구목록은 홍길동, 김민규, 최석영 입니다.
-		System.out.println("친구목록은 " + str + " 입니다");
+		System.out.println( str + " 입니다");
 	}// end of test4.
+	
+	
+	public static void test5() {	//printf("형식문자열", 값1, 값2....)
+		System.out.printf("%s %d %.2f", "문자", 30, 30.345);  //s=string, d=digit  printf는 형식(format)을 받아서 출력함.   [\n:줄바꿈, \t:탭] 
+		System.out.println("문자");
+		//"홍길동," 100, 23.9
+		System.out.printf("%s, %d, %.1f\n", "홍길동", 100, 23.9);
+		
+		
+		//예시 1~3		
+		System.out.printf("%s\n %s %d %s\n %s %.1f %s\n", "안녕하세요. 이름은 김민서입니다.", "나이는 ", 20, "세 입니다.", "몸무게는 ", 37.8, "입니다.");
+		
+		System.out.printf("안녕하세요. 이름은 %s 입니다.\n 나이는 %d 세 입니다. 몸무게는 %.1f 입니다.\n", "김민서", 20, 67.8);
+		
+		String formatStr = "안녕하세요. %s입니다.\n";
+		formatStr += "나이는 %d세 입니다.\n";
+		formatStr += "몸무게는 %.1f입니다.\n";
+		System.out.printf(formatStr, "이름", 20, 23.1 );
+		
+	}//end of test5.
+	
 }// end of class.
