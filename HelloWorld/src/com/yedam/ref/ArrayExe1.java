@@ -1,4 +1,4 @@
-package com.yedam.ref;
+                                                                        package com.yedam.ref;
 //p223 6번문제 풀기.
 public class ArrayExe1 {
 	public static void main(String[] args) {
