@@ -32,7 +32,7 @@ public class task0516 {
 			} else if (selectNo == 2) {		
 				
 				for (int i = 0; i < scores.length; i++) {
-					if (scores[i] != 0) {  //학생 점수가 0점일때 안걸러짐. ㅠㅠ
+					if (scores[i] != 0) {  //1번재 학생이 0점이면 안걸러짐! 
 						System.out.println("입력가능한 학생수 초과! 학생수를 다시 지정해주세요.");
 						break;
 					}
@@ -57,10 +57,10 @@ public class task0516 {
 						max = scores[i];
 					}
 				}
-				double avg = 1.0 * (sum / scores.length);
+				double avg = (1.0 * sum) / scores.length;
 				System.out.printf("최고점수: %d\n평균점수: %.3f\n", max, avg);
 
-			} else if (selectNo == 5) {
+			} else  if (selectNo == 5) {
 				run = false;
 			}
 		} // end of while.
