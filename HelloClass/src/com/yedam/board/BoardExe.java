@@ -35,17 +35,26 @@ public class BoardExe {
 	}
 
 	void execute() {
-		
-		
-		//아이디, 비밀번호를 틀려도 3번의 기회. 3번 초과후 종료. 
-		
-		//아이디 입력.
-		//비밀번호 입력.
-		String uid = userMessage("아이디를 입력해주세요.");
-		String pw = userMessage("비밀번호를 입력해주세요.");
-		
-		boolean run = UserExe.login(uid, pw);     
-		
+
+		// 아이디, 비밀번호를 틀려도 3번의 기회. 3번 초과후 종료.
+
+		// 아이디 입력.
+		// 비밀번호 입력.
+		boolean run = false;
+		int count = 0;
+		for (int i = 0; i < 3; i++) {
+			String uid = userMessage("아이디를 입력해주세요.");
+			String pw = userMessage("비밀번호를 입력해주세요.");
+			run = UserExe.login(uid, pw);
+			count++;
+			if (run == true) {
+				System.out.println("**** 환영합니다! ******");
+				break;
+			}
+		}
+		if (count == 3) {  //3회차에 로그인 성공시 같이 뜸!!!!! 
+			System.out.println("로그인시도 3회 실패로 종료됩니다.");
+		}
 		while (run) {
 			System.out.println("-----------------------------------------------------");
 			System.out.println("1. 추가 |2. 수정 | 3. 삭제 | 4. 목록 | 5. 달력보기 | 6. 종료");
@@ -65,7 +74,7 @@ public class BoardExe {
 				boardlist();
 				break;
 			case 5:
-				
+
 				break;
 			case 6: // 종료
 				run = false;
@@ -123,9 +132,9 @@ public class BoardExe {
 				break;
 			} else if (str.equals("n")) {
 				page++;
-			} else if (str.equals("p")){
+			} else if (str.equals("p")) {
 				page--;
-			}else {
+			} else {
 				int no = Integer.parseInt(str);
 				// 배열에서 조회.
 				Board sboard = getBoard(no);
