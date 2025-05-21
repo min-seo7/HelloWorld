@@ -7,8 +7,8 @@ public class OpertorExe {
 		//test1();
 		//test2();
 		//test3(); //토글
-		//test4(); //월입력시 공란, 마지막일 출력함수 & 달력형식 출력
-		test5();  //삼항연산자. 
+		test4(); //월입력시 공란, 마지막일 출력함수 & 달력형식 출력
+		//test5();  //삼항연산자. 
 	}
 	
 	public static void test5() { //삼항연산자 test
