@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 /*
  * 추가.수정.삭제.목록
+ * 수정/삭제
+ * 목록 - 상세화면 조회
  */
 public class BoardExe {
 	// 필드
