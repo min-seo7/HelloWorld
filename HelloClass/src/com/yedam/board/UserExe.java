@@ -36,16 +36,11 @@ public class UserExe {
 			new User("guest", "3333", "밤손님") };
 
 	static boolean login(String uname, String passwd) {
-		boolean isExist = false;
 		for (int i = 0; i < users.length; i++) {
 			if (uname.equals(users[i].getUserId()) && passwd.equals(users[i].getPasswd())) {
-				isExist = true;
 				return true;
 			}
 		} // end of for.
-		if (!isExist) {
-			System.out.println("아이디 혹은 패스워드를 확인해주세요.");
-		}
 		return false;
 	}
 }// end of UserExe.

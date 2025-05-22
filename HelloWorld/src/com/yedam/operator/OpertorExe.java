@@ -1,5 +1,7 @@
 package com.yedam.operator;
 
+import java.util.Calendar;
+
 public class OpertorExe {
 
 	public static void main (String[] ards) {
@@ -40,15 +42,9 @@ public class OpertorExe {
 	//"월" 정보를 입력하면 "공란" 반환하는 메소드. getSpace()
 	public static int getSpace(int month) {
 		int space = 0;
-		if(month == 3) { //3월 공란
-			space = 6;
-		} else if(month == 4) { //4월 공란
-			space =2;
-		} else if(month == 5) {  //5월 공란
-			space = 4;
-		} else if(month == 7) {   //7월 공란
-			space = 2;
-		}
+		Calendar now = Calendar.getInstance();
+		now.set(2025, month -1, 1);
+		space = now.get(Calendar.DAY_OF_WEEK) - 1;
 		return space;
 	} //end of getSpace.
 	
@@ -56,17 +52,11 @@ public class OpertorExe {
 	
 	//"월" 정보 입력시 말일을 반환하는 메소드. getLastDate()
 	public static int getLastDate(int month) {
-		int lastDate = 31;
-		switch(month) {
-		case 2:
-			lastDate =28; break;
-		case 4:
-		case 6:
-		case 9:
-		case 11:
-			lastDate = 30;
-			break;
-		}
+		int lastDate = 0;
+		Calendar now = Calendar.getInstance();
+		now.set(2025, month - 1, 1);
+		lastDate = now.getActualMaximum(Calendar.DATE);
+		
 		return lastDate;		
 	}//end of getLastDate
 	
