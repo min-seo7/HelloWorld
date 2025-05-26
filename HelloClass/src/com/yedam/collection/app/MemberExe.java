@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class MemberExe {
 	public static void main(String[] args) {
 		boolean run = true; // 반복문 실행/종료
-		// Member[] members = new Member[10]; // 저장공간으로 배열을 선언.
 		List<Member> members = new ArrayList<>();
 
 		Scanner scn = new Scanner(System.in);
@@ -33,12 +32,8 @@ public class MemberExe {
 				int point = Integer.parseInt(scn.nextLine());
 				// 멤버변수 선언과 값 할당.
 				Member member = new Member(id, name, telNo, point); // member클래스 생성자로 한번에 초기화 가능.
-//				member.setMemberId(id);
-//				member.setMemberName(name);
-//				member.setPhone(telNo);
-//				member.setPoint(point);
 
-				// 배열에 추가.
+				// 리스트에 추가.
 						members.add(member);
 						System.out.println("등록완료.");
 						break; // 한건을 추가했으면 반복문 종료.
@@ -52,12 +47,10 @@ public class MemberExe {
 
 				// 같은 값을 찾아서 변경하기.
 				for (int i = 0; i < members.size(); i++) {
-					if (members.get(i) != null) {
 						if (members.get(i).getMemberId().equals(id)) {
 							members.get(i).setPhone(telNo);
 							System.out.println("수정완료.");
 						}
-					}
 				}
 				break;
 
@@ -67,12 +60,10 @@ public class MemberExe {
 
 				// 같은 값을 찾아서 삭제하기.
 				for (int i = 0; i < members.size(); i++) {
-					if (members.get(i) != null) {
 						if (members.get(i).getMemberId().equals(id)) {
 							members.remove(i);
 							System.out.println("삭제완료.");
 						}
-					}
 				}
 				break;
 
@@ -83,7 +74,7 @@ public class MemberExe {
 				// 조회.
 				System.out.printf("%-10s %-5s %-15s\n", "UserId", "회원명", "TelNo");
 				for (int i = 0; i < members.size(); i++) {
-					if (members.get(i) != null && (name.equals("") || name.equals(members.get(i).getMemberName()))) {
+					if (name.equals("") || name.equals(members.get(i).getMemberName())) {
 						System.out.printf("%-10s %-5s %-15s\n", members.get(i).getMemberId(),
 								members.get(i).getMemberName(), members.get(i).getPhone());
 					}

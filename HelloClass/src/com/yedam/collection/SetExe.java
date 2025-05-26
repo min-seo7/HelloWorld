@@ -1,5 +1,9 @@
 package com.yedam.collection;
-
+/*
+ * 
+ * 순서x, 중복불가, 
+ * 
+ */
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
