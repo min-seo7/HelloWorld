@@ -29,3 +29,6 @@ CREATE TABLE emp(
 insert into emp (employee, emp_name, emp_pw, emp_level)
 values (1001, 'È«±æµ¿', '1111', 'manager');
 
+alter table emp 
+rename column employee to emp_no;
+/*Èûµå³×¿µ!*/

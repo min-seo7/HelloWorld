@@ -1,6 +1,6 @@
 package productManagement.vo;
 
-public class Employee {
+public class EmpInfo {
 	//필드
 	private int no;
 	private String name;
@@ -8,9 +8,8 @@ public class Employee {
 	private String level;
 	
 	//생성자
-	public Employee(){}
-	public Employee(int no, String name, String pw, String level) {
-		super();
+	public EmpInfo(){}
+	public EmpInfo(int no, String name, String pw, String level) {
 		this.no = no;
 		this.name = name;
 		this.pw = pw;
