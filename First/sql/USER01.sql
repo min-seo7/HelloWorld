@@ -26,3 +26,6 @@ CREATE TABLE emp(
     emp_level varchar(30)
 );
 
+insert into emp (employee, emp_name, emp_pw, emp_level)
+values (1001, 'ȫ�浿', '1111', 'manager');
+
