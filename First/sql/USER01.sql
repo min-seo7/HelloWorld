@@ -1,34 +1,45 @@
-CREATE TABLE product_t ( /*상품테이블 생성*/
-    p_code VARCHAR2(20) PRIMARY KEY,
-    p_name VARCHAR2(50) not null,
-    price NUMBER(10) not null,
-    enterprise VARCHAR2(30),
-    re_date DATE,
-    memo VARCHAR2(50)
-);    
+/*=================================================05/29*/
 
-CREATE TABLE stock_t (  /*입_출고&재고 테이블 생성*/
-    p_code VARCHAR2(20) PRIMARY KEY,
-    In_Out VARCHAR2(20) not null,
-    in_out_date DATE not null,
-    ea number(10) not null,
-    total number(20),
-    register_date DATE,
-    employee number(10) not null,
-    updateCheck varchar2(10),
-    memo varchar2(50)
-);
+drop table emp;  
+drop table stock_t;
+drop table product_t;
+
 
 CREATE TABLE emp(
-    employee number(10) primary key,
+    emp_no number primary key,
     emp_name varchar2(30),
     emp_pw varchar2(20) not null,
     emp_level varchar(30)
 );
 
-insert into emp (employee, emp_name, emp_pw, emp_level)
+
+CREATE TABLE stock_t (  /*입_출고&재고 테이블 생성*/
+    count_number number GENERATED ALWAYS AS IDENTITY PRIMARY key,
+    p_code VARCHAR2(20),
+    In_Out VARCHAR2(20) not null,
+    in_out_date varchar2(20) not null,
+    ea number(10) not null,
+    location varchar2(20), 
+    register_date varchar2(20) default to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'),
+    employee number(10),
+    total number(20),
+    updateCheck varchar2(10),
+    memo varchar2(50)
+);
+
+
+CREATE TABLE product_t ( /*상품테이블 생성*/
+    p_code VARCHAR2(20) PRIMARY KEY,
+    p_name VARCHAR2(50) not null,
+    price NUMBER(10) not null,
+    enterprise VARCHAR2(30),
+    re_date varchar2(20),
+    memo VARCHAR2(50)
+);    
+
+
+insert into emp (emp_no, emp_name, emp_pw, emp_level)
 values (1001, '홍길동', '1111', 'manager');
 
-alter table emp 
-rename column employee to emp_no;
-/*힘드네영!*/
+insert into emp (emp_no, emp_name, emp_pw, emp_level)
+values (1002, '강민호', '1111', 'staff');

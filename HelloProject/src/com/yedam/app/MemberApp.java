@@ -33,7 +33,7 @@ public class MemberApp {
 			String phone = scn.nextLine();
 			System.out.println("포인트>>");
 			String point = scn.nextLine();
-			Member member = (new Member(mid, name, phone, Integer.parseInt(point)));
+			Member member = new Member(mid, name, phone, Integer.parseInt(point));
 			if(svc.addMember(member)) {
 				System.out.println("등록완료.");
 			} else {

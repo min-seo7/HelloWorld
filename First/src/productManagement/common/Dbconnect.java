@@ -37,37 +37,4 @@ public class Dbconnect {
 		}
 	}// end of disconnect.
 	
-	
-	public List<EmpInfo> emplist(){
-		String sql = "select * from emp";
-		getConnect();
-		List<EmpInfo> emplist = new ArrayList<>();
- 		try {
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
-				EmpInfo employee = new EmpInfo();
-				employee.setNo(rs.getInt("emp_no"));
-				employee.setName(rs.getString("emp_name"));
-				employee.setPw(rs.getString("emp_pw"));
-				employee.setLevel(rs.getString("emp_level"));
-				
-				emplist.add(employee);
-			}		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return emplist;
-		
-	}//end of emplist.
-	
-	public String login() {//로그인 확인.
-		String idpw; 
-		
-		return "manager";
-	}
-	
-	
-	
 }

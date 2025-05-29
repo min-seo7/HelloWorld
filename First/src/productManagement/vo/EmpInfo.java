@@ -2,26 +2,26 @@ package productManagement.vo;
 
 public class EmpInfo {
 	//필드
-	private int no;
+	private int empno;
 	private String name;
 	private String pw;
 	private String level;
 	
 	//생성자
 	public EmpInfo(){}
-	public EmpInfo(int no, String name, String pw, String level) {
-		this.no = no;
+	public EmpInfo(int empno, String name, String pw, String level) {
+		this.empno = empno;
 		this.name = name;
 		this.pw = pw;
 		this.level = level;
 	}
 	//getter&setter
 	public int getNo() {
-		return no;
+		return empno;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setNo(int empno) {
+		this.empno = empno;
 	}
 
 	public String getName() {

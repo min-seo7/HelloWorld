@@ -30,7 +30,6 @@ public class DAO {
 			}    
 		} //end of getConnect.
 		
-		
 		//connection 반환하는 메소드
 		public void disconnect() {
 			try {

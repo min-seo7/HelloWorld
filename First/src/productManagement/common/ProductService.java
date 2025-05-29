@@ -1,5 +1,5 @@
 package productManagement.common;
 
-public class ProductService {
-
+public class ProductService extends Dbconnect{
+	
 }
