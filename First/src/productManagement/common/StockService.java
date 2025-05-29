@@ -7,7 +7,6 @@ import java.util.List;
 import productManagement.vo.Stock;
 
 public class StockService extends Dbconnect implements StockDAO {
-	List<Stock> stocklist = new ArrayList<Stock>();
 	
 	@Override
 	public void addStock(Stock stock) {//추가 
@@ -113,10 +112,10 @@ public class StockService extends Dbconnect implements StockDAO {
 		} finally {
 			disconnect();
 		}
-		System.out.println(" 목록번호   상품코드   입고/출고  입고/출고일  수량   발주처   등록일   재고수량    수정여부    비고");
+		System.out.println(" 목록번호   상품코드   입고/출고  입고/출고일  수량   입/발주처   등록일   재고수량    수정여부    비고");
 		System.out.println("---------------------------------------------------------------------");
 		for(int i = 0; i < inoutlist.size(); i++) {
-			System.out.printf("   %d    %s    %s     %s    %d    %s    %s    %d    %d    %s     %s", //
+			System.out.printf("   %d    %s    %s     %s    %d    %s    %s    %d    %d    %s     %s\n", //
 					inoutlist.get(i).getcountNo(), inoutlist.get(i).getpCode(), inoutlist.get(i).getInOut(), inoutlist.get(i).getInoutdate(), inoutlist.get(i).getEa(), //
 					inoutlist.get(i).getLocation(), inoutlist.get(i).getRegistdate(), inoutlist.get(i).getEmpno(), inoutlist.get(i).getTotal(),//
 					inoutlist.get(i).getUpdatecheck(), inoutlist.get(i).getMemo());

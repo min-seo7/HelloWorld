@@ -1,21 +1,21 @@
 package productManagement.app;
 
-import java.util.List;
 import java.util.Scanner;
 
 import productManagement.common.ProductService;
 import productManagement.common.StockService;
 import productManagement.common.login;
+import productManagement.vo.Product;
 import productManagement.vo.Stock;
 
 public class ProductApp {
 	public void ManagerExe() {
 		login login = new login();
 		StockService stsvc = new StockService();
-		ProductService pdsvc = new ProductService();
-		Stock stock = new Stock();
+		ProductService ptsvc = new ProductService();
+	
 
-		String logreslt;
+		String position;//
 
 		Scanner scn = new Scanner(System.in);
 		boolean run = true;
@@ -25,11 +25,11 @@ public class ProductApp {
 		System.out.print(" ==============================================\n");
 
 			// 로그인창[]
-			logreslt = login.login(); // logreslt 리턴값: back, manager, staff
-			if (logreslt.equals("back")) {
-		
-			}
 			while (run) {
+				position = login.login(); //  position 리턴값: back, manager, staff
+				if (position.equals("back")) {
+					break;
+				}
 
 			System.out.println("\n                   📝 업무 📝               ");
 			System.out.println(" -----------------------------------------------");
@@ -69,7 +69,7 @@ public class ProductApp {
 				System.out.println("");
 				
 				
-				int countNo = 0;
+				int listNo = 0;//목록번호
 				switch (inoutTastk) {
 				case 1: // 등록
 					System.out.print(" 상품코드  >>  ");
@@ -80,33 +80,33 @@ public class ProductApp {
 					String inOutdate = scn.nextLine();
 					System.out.print("    수량  >>  ");
 					int ea = Integer.parseInt(scn.nextLine());
-					System.out.print("    지역  >>  ");
+					System.out.print("    입/발주처  >>  ");
 					String location = scn.nextLine();
-					stock = new Stock(pCode, inOut, inOutdate, ea, location);
+					Stock stock = new Stock(pCode, inOut, inOutdate, ea, location);
 					
 					stsvc.addStock(stock);
 					
 					break;
 				case 2: // 수정(권한)
-					if (logreslt.equals("manager")) {
+					if ( position.equals("manager")) {
 						System.out.print(" 수정할 목록번호  >>  ");
-						countNo = Integer.parseInt(scn.nextLine());
+						listNo = Integer.parseInt(scn.nextLine());
 						System.out.print(" 상품코드  >>  ");
 						pCode = scn.nextLine();
 						System.out.print(" 변경수량  >>  ");
 						ea = Integer.parseInt(scn.nextLine());
 						
-						stsvc.modifyStock(pCode, ea, countNo );
+						stsvc.modifyStock(pCode, ea, listNo );
 					} else {
 						System.out.println("🔏 수정권한이 없습니다. ");
 						continue;
 					}
 					break;
 				case 3: // 삭제(권한)
-					if(logreslt.equals("manager")) {
+					if(position.equals("manager")) {
 						System.out.println(" 삭제목록번호 >> ");
-						countNo = Integer.parseInt(scn.nextLine());
-						stsvc.removeStock(countNo);
+						listNo = Integer.parseInt(scn.nextLine());
+						stsvc.removeStock(listNo);
 					}else {
 						System.out.println("🔏 삭제권한이 없습니다. ");
 						continue;
@@ -114,11 +114,50 @@ public class ProductApp {
 					break;
 				case 4://목록
 					 stsvc.stockList();
-					
 					break;
 				}
 				break;
 			case 3: // 상품관리
+				System.out.println("                   📦 상품관리 📦            ");
+				System.out.println(" ------------------------------------------------");
+				System.out.println(" 1. 상품등록 | 2. 상품수정 | 3. 상품삭제 | 4. 목록 ");
+				System.out.println(" ------------------------------------------------");
+				System.out.println("");
+				System.out.print("  진행할 업무를 선택하세요 >>  ");
+				int mdTask = Integer.parseInt(scn.nextLine());
+				System.out.println("");
+				System.out.println("");
+				
+				switch(mdTask) {
+				case 1: //상품등록
+					System.out.print(" 상품코드>>");
+					String mdpCode = scn.nextLine();
+					System.out.print(" 상품명 >>");
+					String pname = scn.nextLine();
+					System.out.print(" 단가 >>");
+					int price = Integer.parseInt(scn.nextLine());
+					System.out.print(" 거래처 >>");
+					String patner = scn.nextLine();
+
+					Product product = new Product(mdpCode, pname, price, patner);
+					ptsvc.addProduct(product);
+					
+					break;
+				case 2: //상품수정
+					break;
+				case 3: //상품삭제 - 상품코드
+					if(position.equals("manager")) {
+						System.out.println(" 삭제상품코드 >> ");
+						mdpCode = scn.nextLine();
+						ptsvc.removeProduct(mdpCode);
+					}else {
+						System.out.println("🔏 삭제권한이 없습니다. ");
+						continue;
+					}
+					break;
+				case 4: //목록
+					break;	
+				}
 				break;
 			case 4: // 종료
 				run = false;

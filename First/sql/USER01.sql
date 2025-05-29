@@ -32,8 +32,8 @@ CREATE TABLE product_t ( /*상품테이블 생성*/
     p_code VARCHAR2(20) PRIMARY KEY,
     p_name VARCHAR2(50) not null,
     price NUMBER(10) not null,
-    enterprise VARCHAR2(30),
-    re_date varchar2(20),
+    partner VARCHAR2(30),
+    re_date varchar2(20) default to_char(sysdate, 'YYYY-MM-DD'),
     memo VARCHAR2(50)
 );    
 

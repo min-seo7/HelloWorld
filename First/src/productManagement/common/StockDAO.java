@@ -1,7 +1,5 @@
 package productManagement.common;
 
-import java.util.List;
-
 import productManagement.vo.Stock;
 
 //등록, 수정, 삭제, 목록
