@@ -81,7 +81,7 @@ public class StockService extends Dbconnect implements StockDAO {
 	}
 
 	@Override
-	public List<Stock> stockList() {//목록 
+	public void stockList() {//목록 
 		String sql = "select * from stock_t";
 		List<Stock> inoutlist = new ArrayList<>();
 		
@@ -96,10 +96,11 @@ public class StockService extends Dbconnect implements StockDAO {
 				stock.setcountNo(rs.getInt("count_number"));
 				stock.setpCode(rs.getString("p_code"));
 				stock.setInOut(rs.getString("in_out"));
+				stock.setInOut(rs.getString("in_out_date"));
 				stock.setEa(rs.getInt("ea"));
 				stock.setLocation(rs.getString("location"));
 				stock.setRegistdate(rs.getString("register_date"));
-				stock.setEmpno(rs.getInt("Employee"));
+				stock.setEmpno(rs.getInt("emp_no"));
 				stock.setTotal(rs.getInt("total"));
 				stock.setUpdatecheck(rs.getString("updatecheck"));
 				stock.setMemo(rs.getString("memo"));
@@ -112,7 +113,18 @@ public class StockService extends Dbconnect implements StockDAO {
 		} finally {
 			disconnect();
 		}
-		return inoutlist;
+		System.out.println(" 목록번호   상품코드   입고/출고  입고/출고일  수량   발주처   등록일   재고수량    수정여부    비고");
+		System.out.println("---------------------------------------------------------------------");
+		for(int i = 0; i < inoutlist.size(); i++) {
+			System.out.printf("   %d    %s    %s     %s    %d    %s    %s    %d    %d    %s     %s", //
+					inoutlist.get(i).getcountNo(), inoutlist.get(i).getpCode(), inoutlist.get(i).getInOut(), inoutlist.get(i).getInoutdate(), inoutlist.get(i).getEa(), //
+					inoutlist.get(i).getLocation(), inoutlist.get(i).getRegistdate(), inoutlist.get(i).getEmpno(), inoutlist.get(i).getTotal(),//
+					inoutlist.get(i).getUpdatecheck(), inoutlist.get(i).getMemo());
+		}
+			
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
 	}
 	
 }

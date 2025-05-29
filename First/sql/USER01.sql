@@ -21,7 +21,7 @@ CREATE TABLE stock_t (  /*입_출고&재고 테이블 생성*/
     ea number(10) not null,
     location varchar2(20), 
     register_date varchar2(20) default to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'),
-    employee number(10),
+    emp_no number(10),
     total number(20),
     updateCheck varchar2(10),
     memo varchar2(50)

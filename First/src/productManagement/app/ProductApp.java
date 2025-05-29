@@ -1,5 +1,6 @@
 package productManagement.app;
 
+import java.util.List;
 import java.util.Scanner;
 
 import productManagement.common.ProductService;
@@ -88,12 +89,12 @@ public class ProductApp {
 					break;
 				case 2: // 수정(권한)
 					if (logreslt.equals("manager")) {
+						System.out.print(" 수정할 목록번호  >>  ");
+						countNo = Integer.parseInt(scn.nextLine());
 						System.out.print(" 상품코드  >>  ");
 						pCode = scn.nextLine();
 						System.out.print(" 변경수량  >>  ");
 						ea = Integer.parseInt(scn.nextLine());
-						System.out.print(" 목록번호  >>  ");
-						countNo = Integer.parseInt(scn.nextLine());
 						
 						stsvc.modifyStock(pCode, ea, countNo );
 					} else {
@@ -112,7 +113,8 @@ public class ProductApp {
 					}
 					break;
 				case 4://목록
-					stsvc.stockList();
+					 stsvc.stockList();
+					
 					break;
 				}
 				break;

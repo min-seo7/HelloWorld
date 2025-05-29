@@ -9,5 +9,5 @@ public interface StockDAO {
 	public void addStock(Stock stock);
 	public void modifyStock(String pCode, int ea, int countNo);
 	public void removeStock(int countNo);
-	public List<Stock> stockList();
+	public void stockList();
 }
