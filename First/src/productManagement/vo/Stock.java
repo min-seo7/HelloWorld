@@ -1,119 +1,110 @@
 package productManagement.vo;
 
 public class Stock {
-	private int orderNo;
+	//필드
+	private int orderNumber;
 	private String pCode;
-	private String inOut;  //열거로???
+	private String inOut;
 	private int ea;
 	private String location;
-	private int total;
-	private String registdate;
 	private int empno;
-	private String updatecheck;
+	private int total;
+	private String issueDate;
+	private String modifyCheck;
+	private int mEmpno;
 	private String memo;
-	
 	//생성자
 	public Stock() {}
-	public Stock(String pCode, String inOut, int ea, String location, int total, String registdate,
-			int empno, String updatecheck, String memo) {
+	public Stock(String pCode, int ea, String location, int empno) {
+
+		this.pCode = pCode;
+		this.ea = ea;
+		this.location = location;
+		this.empno = empno;
+	}
+
+	public Stock(int orderNumber, String pCode, String inOut, int ea, String location, int empno, int total,
+			String issueDate, String modifyCheck, int mEmpno, String memo) {
+		this.orderNumber = orderNumber;
 		this.pCode = pCode;
 		this.inOut = inOut;
 		this.ea = ea;
 		this.location = location;
-		this.total = total;
-		this.registdate = registdate;
 		this.empno = empno;
-		this.updatecheck = updatecheck;
+		this.total = total;
+		this.issueDate = issueDate;
+		this.modifyCheck = modifyCheck;
+		this.mEmpno = mEmpno;
 		this.memo = memo;
 	}
-	//(등록)용 생성자.
-	public Stock(String pCode, int ea, String location) {
-		this.pCode = pCode;
-		this.ea = ea;
-		this.location = location;
+	//getter
+	public int getOrderNumber() {
+		return orderNumber;
 	}
-	
-	
-
-	
-
-	public int getorderNo() {
-		return orderNo;
-	}
-	public void setorderNo(int orderNo) {
-		this.orderNo = orderNo;
-	}
-	
 	public String getpCode() {
 		return pCode;
 	}
-
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
-	}
-
 	public String getInOut() {
 		return inOut;
 	}
-
-	public void setInOut(String inOut) {
-		this.inOut = inOut;
-	}
-
 	public int getEa() {
 		return ea;
 	}
-
-	public void setEa(int ea) {
-		this.ea = ea;
-	}
-
 	public String getLocation() {
 		return location;
 	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	public String getRegistdate() {
-		return registdate;
-	}
-
-	public void setRegistdate(String registdate) {
-		this.registdate = registdate;
-	}
-
 	public int getEmpno() {
 		return empno;
 	}
-
-	public void setEmpno(int empno) {
-		this.empno = empno;
+	public int getTotal() {
+		return total;
 	}
-
-	public String getUpdatecheck() {
-		return updatecheck;
+	public String getIssueDate() {
+		return issueDate;
 	}
-
-	public void setUpdatecheck(String updatecheck) {
-		this.updatecheck = updatecheck;
+	public String getModifyCheck() {
+		return modifyCheck;
 	}
-
+	public int getmEmpno() {
+		return mEmpno;
+	}
 	public String getMemo() {
 		return memo;
 	}
-
+	//setter
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	public void setpCode(String pCode) {
+		this.pCode = pCode;
+	}
+	public void setInOut(String inOut) {
+		this.inOut = inOut;
+	}
+	public void setEa(int ea) {
+		this.ea = ea;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public void setIssueDate(String issueDate) {
+		this.issueDate = issueDate;
+	}
+	public void setModifyCheck(String modifyCheck) {
+		this.modifyCheck = modifyCheck;
+	}
+	public void setmEmpno(int mEmpno) {
+		this.mEmpno = mEmpno;
+	}
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
 	
+
 }

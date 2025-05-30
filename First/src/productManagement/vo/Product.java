@@ -5,76 +5,66 @@ public class Product {
 	private String pCode;
 	private String pName;
 	private int price;
-	private String patner;
-	private String redate; // 등록일 sysdate
-	private String memo; // 수성지
-
+	private String partner;
+	private String reDate; // 등록일 sysdate
+	private String info;
+	
 	// 생성자
-	public Product() {
-	}
-
-	public Product(String pCode, String pName, int price, String patner) {
+	public Product() {};
+	public Product(String pCode, String pName, int price, String patner, String info) {
 		this.pCode = pCode;
 		this.pName = pName;
 		this.price = price;
-		this.patner = patner;
+		this.partner = patner;
+		this.info = info;
 	}
-
-	public Product(String pCode, String pName, int price, String patner, String redate, String memo) {
+	public Product(String pCode, String pName, int price, String partner, String reDate, String info) {
 		this.pCode = pCode;
 		this.pName = pName;
 		this.price = price;
-		this.patner = patner;
-		this.redate = redate;
-		this.memo = memo;
+		this.partner = partner;
+		this.reDate = reDate;
+		this.info = info;
 	}
-
-	// getter&setter
+	
+	
+	//getter
 	public String getpCode() {
 		return pCode;
 	}
-
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
-	}
-
 	public String getpName() {
 		return pName;
 	}
-
-	public void setpName(String pName) {
-		this.pName = pName;
-	}
-
 	public int getPrice() {
 		return price;
 	}
-
+	public String getPartner() {
+		return partner;
+	}
+	public String getReDate() {
+		return reDate;
+	}
+	public String getInfo() {
+		return info;
+	}
+	//setter
+	public void setpCode(String pCode) {
+		this.pCode = pCode;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	public String getPartner() {
-		return patner;
+	public void setPartner(String partner) {
+		this.partner = partner;
 	}
-
-	public void setPartner(String patner) {
-		this.patner = patner;
+	public void setReDate(String reDate) {
+		this.reDate = reDate;
 	}
-
-	public String getRedate() {
-		return redate;
-	}
-
-	public void setRedate(String redate) {
-		this.redate = redate;
-	}
-
-	public String getMemo() {
-		return memo;
-	}
-
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
+	public void setInfo(String info) {
+		this.info = info;
+	} 
+		
 }

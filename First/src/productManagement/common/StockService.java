@@ -11,9 +11,9 @@ public class StockService extends Dbconnect implements StockDAO {
 	@Override
 	public void addStock(Stock stock) {// 추가
 		
-		int last = total( );
+		int last = total( ); //기존재고량 
 		
-		String sql = "insert into stock_t(p_code, in_out, ea, location, total)" + "values(?,?,?,?,?)";   
+		String sql = "insert into stock_t(p_code, in_out, ea, location,  emp_no, total )" + "values(?,?,?,?,?,?)";   
 		getConnect();
 		int r = 0;
 		try {
@@ -21,7 +21,8 @@ public class StockService extends Dbconnect implements StockDAO {
 			psmt.setString(1, stock.getpCode());
 			psmt.setInt(3, stock.getEa());
 			psmt.setString(4, stock.getLocation());
-			psmt.setInt(5,stock.getEa() + last );
+			psmt.setInt(5, stock.getEmpno());
+			psmt.setInt(6,stock.getEa() + last ); //기존재고 + 입/출고수량
 			
 			if(stock.getEa() < 0) {
 				psmt.setString(2, "OUT"); 
@@ -32,7 +33,7 @@ public class StockService extends Dbconnect implements StockDAO {
 			r = psmt.executeUpdate();
 			if (r == 1) {
 				System.out.println("등록완료.");
-				
+				System.out.println(last);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,8 +44,16 @@ public class StockService extends Dbconnect implements StockDAO {
 	}
 
 	@Override   
-	public void modifyStock(String pCode, int ea, int orderNo, int empNo, String memo) {// 수정   
-		String sql = "update stock_t" + "  set p_code = ?" +"    ,in_out = ?" +"	,ea = ?" +"    ,updateCheck = ?"+"    ,emp_no = ?"+"    ,memo = ?"+ "where order_number = ? ";
+	public void modifyStock(int oderNumber, String pCode, int ea, String location, int empNO, String memo) {// 수정   
+		String sql = "update stock_t" 
+					  + "  set p_code = ?" 
+				      +"      ,in_out = ?" 
+					  +"	  ,ea = ?" 
+				      +"      ,location = ?"
+				      +"      ,modifyCheck = ?"
+					  +"      ,modify_emp= ?"
+				      +"      ,memo = ?"
+					  + "where order_number = ? ";
 
 		getConnect();
 
@@ -58,10 +67,11 @@ public class StockService extends Dbconnect implements StockDAO {
 				psmt.setString(2, "IN");
 			}
 			psmt.setInt(3, ea);
-			psmt.setString(4, "Y");
-			psmt.setInt(5, empNo);
-			psmt.setString(6, memo);
-			psmt.setInt(7, orderNo);
+			psmt.setString(4, location);
+			psmt.setString(5, "Y");
+			psmt.setInt(6, empNO);
+			psmt.setString(7, memo);
+			psmt.setInt(8, oderNumber);
 						
 			r = psmt.executeUpdate();
 			if (r == 1) {
@@ -76,7 +86,7 @@ public class StockService extends Dbconnect implements StockDAO {
 	}
 
 	@Override
-	public void removeStock(int orderNo) {// 삭제
+	public void removeStock(int oderNumber) {// 삭제
 		String sql = "delete from stock_t" + "   where order_number = ?";
 
 		getConnect();
@@ -84,9 +94,9 @@ public class StockService extends Dbconnect implements StockDAO {
 		int r = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, orderNo);
+			psmt.setInt(1, oderNumber);
 			r = psmt.executeUpdate();
-			if (r == 0) {
+			if (r == 1) {
 				System.out.println("삭제완료.");
 			}
 		} catch (SQLException e) {
@@ -98,7 +108,7 @@ public class StockService extends Dbconnect implements StockDAO {
 
 	@Override
 	public void stockList() {// 목록
-		String sql = "select * from stock_t";
+		String sql = "select * from stock_t order by order_number desc";
 		List<Stock> inoutlist = new ArrayList<>();
 
 		getConnect();
@@ -109,15 +119,16 @@ public class StockService extends Dbconnect implements StockDAO {
 
 			while (rs.next()) {
 				Stock stock = new Stock();
-				stock.setorderNo(rs.getInt("order_number"));
+				stock.setOrderNumber(rs.getInt("order_number"));
 				stock.setpCode(rs.getString("p_code"));
 				stock.setInOut(rs.getString("in_out"));
 				stock.setEa(rs.getInt("ea"));
 				stock.setLocation(rs.getString("location"));
-				stock.setRegistdate(rs.getString("register_date"));
 				stock.setEmpno(rs.getInt("emp_no"));
 				stock.setTotal(rs.getInt("total"));
-				stock.setUpdatecheck(rs.getString("updatecheck"));
+				stock.setIssueDate(rs.getString("issue_date"));
+				stock.setModifyCheck(rs.getString("modifyCheck"));
+				stock.setEmpno(rs.getInt("modify_emp"));
 				stock.setMemo(rs.getString("memo"));
 
 				inoutlist.add(stock);
@@ -132,11 +143,11 @@ public class StockService extends Dbconnect implements StockDAO {
 		System.out.println("---------------------------------------------------------------------");
 		for (int i = 0; i < inoutlist.size(); i++) {
 			System.out.printf("   %d    %s    %s     %d    %s    %s    %d    %d    %s     %s\n", //
-					inoutlist.get(i).getorderNo(), inoutlist.get(i).getpCode(), inoutlist.get(i).getInOut(),
+					inoutlist.get(i).getOrderNumber(), inoutlist.get(i).getpCode(), inoutlist.get(i).getInOut(),
 					inoutlist.get(i).getEa(), //
-					inoutlist.get(i).getLocation(), inoutlist.get(i).getRegistdate(), inoutlist.get(i).getEmpno(),
+					inoutlist.get(i).getLocation(), inoutlist.get(i).getIssueDate(), inoutlist.get(i).getEmpno(),
 					inoutlist.get(i).getTotal(), //
-					inoutlist.get(i).getUpdatecheck(), inoutlist.get(i).getMemo());
+					inoutlist.get(i).getModifyCheck(), inoutlist.get(i).getMemo());
 		}
 
 		System.out.println("");
@@ -146,7 +157,7 @@ public class StockService extends Dbconnect implements StockDAO {
 
 	@Override
 	public int total( ) {  //total 컬럼 마지막 값 받아서 리턴.
-		String sql = "select total from stock_t where register_date in(select MAX(register_date)from stock_t)";
+		String sql = "select total from stock_t where issue_date in(select MAX(issue_date)from stock_t)";
 		
 		getConnect();
 		
@@ -159,6 +170,8 @@ public class StockService extends Dbconnect implements StockDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			disconnect();
 		}
 		
 		return total_row;

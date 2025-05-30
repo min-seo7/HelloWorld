@@ -1,6 +1,6 @@
 package productManagement.vo;
 
-public class EmpInfo {
+public class EmpInfo {  
 	//필드
 	private int empno;
 	private String name;

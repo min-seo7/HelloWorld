@@ -3,12 +3,10 @@ package productManagement.common;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import productManagement.vo.EmpInfo;
 
 public class login extends Dbconnect {
-	Scanner scn = new Scanner(System.in);
 
 	public List<EmpInfo> emplist() {
 		String sql = "select * from emp";
@@ -37,14 +35,14 @@ public class login extends Dbconnect {
 		return emplist;
 	}// end of emplist.
 
-	public String login(int empNO, String empPw) {
+	public String loginM(int empNO, String empPw) {
 		List<EmpInfo> emplist = emplist();
 		
 		boolean isTrue = false;
 		for (int i = 0; i < emplist.size(); i++) {
 			if (empNO == emplist.get(i).getNo() && empPw.equals(emplist.get(i).getPw())) {
-				if (emplist.get(i).getLevel().equals("manager")) {
-					return "manager";
+				if (emplist.get(i).getLevel().equals("admin")) {
+					return "admin";
 				} else if (emplist.get(i).getLevel().equals("staff")) {
 					return "staff";
 				}

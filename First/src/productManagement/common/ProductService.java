@@ -11,7 +11,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 
 	@Override
 	public void addProduct(Product product) {  
-		String sql = "insert into product_t(p_code, p_name, price, partner)" + "values(?,?,?,?)";
+		String sql = "insert into product_t(p_code, p_name, price, partner, info)" + "values(?,?,?,?,?)";
 		getConnect();
 		int r = 0;
 
@@ -21,6 +21,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			psmt.setString(2, product.getpName());
 			psmt.setInt(3, product.getPrice());
 			psmt.setString(4, product.getPartner());
+			psmt.setString(5, product.getInfo());
 					
 			
 			r = psmt.executeUpdate();
@@ -36,8 +37,13 @@ public class ProductService extends Dbconnect implements ProductDAO {
 	}
 
 	@Override
-	public void modifyProduct(String mdpCode, String pname, int price ) {
-		String sql = "update product_t" + " set p_name = ?" + "    ,price = ?" + " where p_code = ? ";
+	public void modifyProduct(String pCode, String pname, int price, String partner, String info ) {
+		String sql = "update product_t" 
+	                 + " set p_name = ?" 
+				     + "     ,price = ?" 
+	                 + "     ,partner = ?"
+	                 + "     ,info = ?"
+	                 + " where p_code = ? ";
 		getConnect();
 		
 		int r = 0;
@@ -45,7 +51,9 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, pname);	
 			psmt.setInt(2, price);	
-			psmt.setString(3, mdpCode);
+			psmt.setString(3, partner);
+			psmt.setString(4, info);
+			psmt.setString(5, pCode);
 			
 			r = psmt.executeUpdate();
 			if(r == 1) {
@@ -98,8 +106,8 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			product.setpName(rs.getString("p_name"));
 			product.setPrice(rs.getInt("price"));
 			product.setPartner(rs.getString("partner"));
-			product.setRedate(rs.getString("re_date"));
-			product.setMemo(rs.getString("memo"));
+			product.setReDate(rs.getString("re_date"));
+			product.setInfo(rs.getString("info"));
 			
 			productlist.add(product);
 			
@@ -114,7 +122,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 		System.out.println(" ------------------------------------------");
 		for (int i = 0; i < productlist.size(); i++) {
 			System.out.printf(" %s  %s  %d   %s   %s   %s\n", productlist.get(i).getpCode(),  productlist.get(i).getpName(),productlist.get(i).getPrice()//
-					,productlist.get(i).getPartner(), productlist.get(i).getRedate(), productlist.get(i).getMemo());
+					,productlist.get(i).getPartner(), productlist.get(i).getReDate(), productlist.get(i).getInfo());
 			
 		}//end of for.
 		
