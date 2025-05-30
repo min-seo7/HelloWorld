@@ -16,7 +16,7 @@ public class stockDetail {
 	private String promemo;
 	
 	//stock
-	private String coutnNO;
+	private String orderNO;
 	//private String pCode; 공통값
 	private String inOut;  //열거로???
 	private String inoutdate;
@@ -60,7 +60,7 @@ public class stockDetail {
 		return promemo;
 	}
 	public String getCoutnNO() {
-		return coutnNO;
+		return orderNO;
 	}
 	public String getInOut() {
 		return inOut;
@@ -85,6 +85,63 @@ public class stockDetail {
 	}
 	public String getMemo() {
 		return memo;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public void setpCode(String pCode) {
+		this.pCode = pCode;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public void setEnterprise(String enterprise) {
+		this.enterprise = enterprise;
+	}
+	public void setRedate(String redate) {
+		this.redate = redate;
+	}
+	public void setPromemo(String promemo) {
+		this.promemo = promemo;
+	}
+	public void setCoutnNO(String orderNo) {
+		this.orderNO = orderNo;
+	}
+	public void setInOut(String inOut) {
+		this.inOut = inOut;
+	}
+	public void setInoutdate(String inoutdate) {
+		this.inoutdate = inoutdate;
+	}
+	public void setEa(int ea) {
+		this.ea = ea;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public void setRegistdate(String registdate) {
+		this.registdate = registdate;
+	}
+	public void setUpdatecheck(String updatecheck) {
+		this.updatecheck = updatecheck;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 	
 	

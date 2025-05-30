@@ -14,10 +14,9 @@ CREATE TABLE emp(
 
 
 CREATE TABLE stock_t (  /*입_출고&재고 테이블 생성*/
-    count_number number GENERATED ALWAYS AS IDENTITY PRIMARY key,
-    p_code VARCHAR2(20),
+    order_number number GENERATED ALWAYS AS IDENTITY PRIMARY key,   /*수정해줘라*/
+    p_code VARCHAR2(20)not null,
     In_Out VARCHAR2(20) not null,
-    in_out_date varchar2(20) not null,
     ea number(10) not null,
     location varchar2(20), 
     register_date varchar2(20) default to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'),
@@ -43,3 +42,25 @@ values (1001, '홍길동', '1111', 'manager');
 
 insert into emp (emp_no, emp_name, emp_pw, emp_level)
 values (1002, '강민호', '1111', 'staff');
+
+/*total 마지막행 출력test*/
+insert into stock_t (p_code, In_Out, ea, total)
+values (77, 'in', 5, 50);
+
+insert into stock_t (p_code, In_Out, ea, total)
+values (99, 'out', 5, 20);
+
+
+select total 
+from stock_t
+where register_date in(select MAX(register_date)
+from stock_t);
+
+
+select *
+from emp e join stock_t s
+on (e.emp_no = s.emp_no);
+join product_t p
+on (s.p_code = p.p_code);
+
+

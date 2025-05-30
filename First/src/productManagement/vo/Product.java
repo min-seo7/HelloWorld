@@ -54,11 +54,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getpatner() {
+	public String getPartner() {
 		return patner;
 	}
 
-	public void setpatner(String patner) {
+	public void setPartner(String patner) {
 		this.patner = patner;
 	}
 

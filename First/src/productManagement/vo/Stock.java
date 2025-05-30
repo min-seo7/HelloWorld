@@ -1,10 +1,9 @@
 package productManagement.vo;
 
 public class Stock {
-	private int countNo;
+	private int orderNo;
 	private String pCode;
 	private String inOut;  //열거로???
-	private String inoutdate;
 	private int ea;
 	private String location;
 	private int total;
@@ -15,11 +14,10 @@ public class Stock {
 	
 	//생성자
 	public Stock() {}
-	public Stock(String pCode, String inOut, String inoutdate, int ea, String location, int total, String registdate,
+	public Stock(String pCode, String inOut, int ea, String location, int total, String registdate,
 			int empno, String updatecheck, String memo) {
 		this.pCode = pCode;
 		this.inOut = inOut;
-		this.inoutdate = inoutdate;
 		this.ea = ea;
 		this.location = location;
 		this.total = total;
@@ -29,10 +27,8 @@ public class Stock {
 		this.memo = memo;
 	}
 	//(등록)용 생성자.
-	public Stock(String pCode, String inOut, String inoutdate, int ea, String location) {
+	public Stock(String pCode, int ea, String location) {
 		this.pCode = pCode;
-		this.inOut = inOut;
-		this.inoutdate = inoutdate;
 		this.ea = ea;
 		this.location = location;
 	}
@@ -41,11 +37,11 @@ public class Stock {
 
 	
 
-	public int getcountNo() {
-		return countNo;
+	public int getorderNo() {
+		return orderNo;
 	}
-	public void setcountNo(int countNo) {
-		this.countNo = countNo;
+	public void setorderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 	
 	public String getpCode() {
@@ -62,14 +58,6 @@ public class Stock {
 
 	public void setInOut(String inOut) {
 		this.inOut = inOut;
-	}
-
-	public String getInoutdate() {
-		return inoutdate;
-	}
-
-	public void setInoutdate(String inoutdate) {
-		this.inoutdate = inoutdate;
 	}
 
 	public int getEa() {

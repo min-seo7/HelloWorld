@@ -37,16 +37,8 @@ public class login extends Dbconnect {
 		return emplist;
 	}// end of emplist.
 
-	public String login() {
+	public String login(int empNO, String empPw) {
 		List<EmpInfo> emplist = emplist();
-		
-
-		System.out.println();
-		System.out.print(" 사원번호입력 >>  ");
-		int empNO = Integer.parseInt(scn.nextLine());
-		System.out.print(" 비밀번호입력 >>  ");
-		String empPw = scn.nextLine();
-		
 		
 		boolean isTrue = false;
 		for (int i = 0; i < emplist.size(); i++) {
