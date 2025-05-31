@@ -73,7 +73,7 @@ INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (7, 'David Lee', 'p
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, issue_date, modifyCheck, modify_emp, memo) 
 VALUES ('P123', 'IN', 100, 'A1', 1, to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'), '-', NULL, 'Initial stock');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, issue_date, modifyCheck, modify_emp, memo) 
-VALUES ('P124', 'OUT', 50, 'B1', 2, to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'), '-', NULL, 'Sold to customer');
+VALUES ('P124', 'OUT', -50, 'B1', 2, to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'), '-', NULL, 'Sold to customer');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, issue_date, modifyCheck, modify_emp, memo) 
 VALUES ('P125', 'IN', 200, 'A2', 3, to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS'), '-', NULL, 'Stock replenishment');
 
