@@ -6,9 +6,8 @@ public interface InquiryDAO {//[월별조회, 입고조회, 출고조회]//[상�
 	public void inputInquiry(String chooseInOut); // [입고, 두문번호, 상품코드, 상품명, 수량, 지역, 등록일] -날짜 오름차순
 	public void modifyputInquiry(); //[주분번호, 입/출고, 상품코드, 상품명, 수량, 지역, 수정직원이름, 메모, 등록일] -날짜 오름차순
 	//상품조회
-	public void pCodeInquiry(); // [상품코드, 상품명, 거래퍼, 상품등록일, info]
-	public void pNameInquiry(); // [상품명, 상품코드, 거래처, 상품등록일, info]
-	public void partnerInuiry(); // [거래처, 상품코드, 상품명, 상품등록일, info]
+	public void pCodeInquiry(String pcode); // [상품코드, 상품명, 거래퍼, 상품등록일, info]
+	public void pNameInquiry(String pname); // [상품명, 상품코드, 거래처, 상품등록일, info]
 }
 
 

@@ -4,14 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import productManagement.vo.Product;
 import productManagement.vo.StockDetail;
 
 
 
 
 public class InquiryService extends Dbconnect implements InquiryDAO {
-	List<StockDetail> detailList = new ArrayList<>();
-	StockDetail stockdetail = new StockDetail();
+	
+	
 	String sql;
 
 	@Override
@@ -20,8 +21,9 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		sql = "select substr(s.issue_date,3,5) as issue_date, s.order_number, s.p_code, "
 				     + "p.p_name, s.In_Out, s.ea  from emp e join stock_t s on (e.emp_no = s.emp_no)  "
 				     + "join product_t p on(p.p_code = s.p_code) where substr(s.issue_date,3,5) = ?"
-						+ "order by s.order_number asc";
+					+ "order by issue_date asc";
 
+		List<StockDetail> detailList = new ArrayList<>();
 		getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -29,6 +31,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 			rs = psmt.executeQuery();		
 			
 			while(rs.next()) {
+				StockDetail stockdetail = new StockDetail();
 				stockdetail.setIssueDate(rs.getString("issue_date"));
 				stockdetail.setOrderNumber(rs.getInt("order_number"));
 				stockdetail.setpCode(rs.getString("p_code"));
@@ -64,7 +67,8 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		
 		sql = "select s.in_out, s.order_number, s.p_code, p.p_name, s.ea, s.location, s.issue_date "
 				+ "from stock_t s join product_t p on (s. p_code = p.p_code) "
-				+ "where s.in_out = ? order by s.issue_date asc";
+				+ "where lower(s.in_out) = ? order by s.issue_date asc";
+		List<StockDetail> detailList = new ArrayList<>();
 		getConnect();
 		
 		try {
@@ -73,6 +77,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {  //생성자 넣기.
+				StockDetail stockdetail = new StockDetail();
 				stockdetail.setInOut(rs.getString("in_out"));
 				stockdetail.setOrderNumber(rs.getInt("order_number"));
 				stockdetail.setpCode(rs.getString("p_code"));
@@ -105,7 +110,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 			sql= "select s.in_out,  s.order_number, s.p_code, p.p_name, s.ea, s.location, e.emp_name, s.memo, s.issue_date "
 				+ "from stock_t s join product_t p on (s.p_code = p.p_code)  join emp e on (s.modify_emp = e.emp_no) "
 				+ "where modifycheck ='Y' order by issue_date asc";
-			
+			List<StockDetail> detailList = new ArrayList<>();
 			getConnect();
 			
 			try {
@@ -113,6 +118,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 				rs = psmt.executeQuery();
 				
 				while(rs.next()) {
+					StockDetail stockdetail = new StockDetail();
 					stockdetail.setInOut(rs.getString("in_out"));
 					stockdetail.setOrderNumber(rs.getInt("order_number"));
 					stockdetail.setpCode(rs.getString("p_code"));
@@ -144,22 +150,83 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 	}
 
 	@Override
-	public void pCodeInquiry() {
-		// [상품코드, 상품명, 거래퍼, 상품등록일, info]
+	public void pCodeInquiry(String pcode) {
+		// [상품코드, 상품명,  단가, 재고수량, 거래처, 상품등록일, info]
+		List<Product> productList = new ArrayList<>();
+		String sql = "select * "
+				     + "from product_t"
+				     + "where lower(p_code) = ?";
+		getConnect();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, pcode);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+			Product product = new Product();
+			product.setpCode(rs.getString("p_code"));
+			product.setpName(rs.getString("p_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setTotal(rs.getInt("total"));
+			product.setPartner(rs.getString("patner"));
+			product.setReDate(rs.getString("re_date"));
+			product.setInfo(rs.getString("info"));
+			
+			productList.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		System.out.println("상품코드   상품명   단가   재고수량    거래처    등록일    상세정보");
+		for (int i = 0; i < productList.size(); i++) {	
+			System.out.printf("%s    %s   %d   %d   %s   %s   %s", productList.get(i).getpCode()//
+					,productList.get(i).getpName(), productList.get(i).getPrice(), productList.get(i).getTotal()//
+					, productList.get(i).getPartner(), productList.get(i).getReDate(), productList.get(i).getInfo());
+		}
 		
 	}
 
 	@Override
-	public void pNameInquiry() {
-		// [상품명, 상품코드, 거래처, 상품등록일, info]
+	public void pNameInquiry(String pname) {
+		// productList.get(i).
+		List<Product> productList = new ArrayList<>();
+		String sql = "select * from product_t where p_name like ?";
+		getConnect();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, "%" + pname + "%");
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+			Product product = new Product();
+			product.setpCode(rs.getString("p_code"));
+			product.setpName(rs.getString("p_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setPartner(rs.getString("partner"));
+			product.setReDate(rs.getString("re_date"));
+			product.setInfo(rs.getString("info"));
+			
+			productList.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		System.out.println("상품코드   상품명   단가   재고수량    거래처    등록일    상세정보");
+		for (int i = 0; i < productList.size(); i++) {	
+			System.out.printf("%s    %s   %d   %d   %s   %s   %s\n", productList.get(i).getpCode()//
+					,productList.get(i).getpName(), productList.get(i).getPrice(), productList.get(i).getTotal()//
+					, productList.get(i).getPartner(), productList.get(i).getReDate(), productList.get(i).getInfo());
+		}
 		
 	}
 
-	@Override
-	public void partnerInuiry() {
-		// [거래처, 상품코드, 상품명, 상품등록일, info]
-		
-	}
+
 	
 
 }// end of class.

@@ -23,7 +23,6 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			psmt.setString(4, product.getPartner());
 			psmt.setString(5, product.getInfo());
 					
-			
 			r = psmt.executeUpdate();
 			if (r == 1) {
 				System.out.println("등록완료.");
@@ -43,7 +42,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 				     + "     ,price = ?" 
 	                 + "     ,partner = ?"
 	                 + "     ,info = ?"
-	                 + " where p_code = ? ";
+	                 + " where p_code = ?";
 		getConnect();
 		
 		int r = 0;
@@ -69,7 +68,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 
 	@Override
 	public void removeProduct(String pCode) {
-		String sql = "delete from product_t" + " where p_code = ? ";
+		String sql = "delete from product_t" + " where lower(p_code) = ?";
 
 		getConnect();
 
@@ -105,6 +104,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			product.setpCode(rs.getString("p_code"));
 			product.setpName(rs.getString("p_name"));
 			product.setPrice(rs.getInt("price"));
+			product.setTotal(rs.getInt("total"));
 			product.setPartner(rs.getString("partner"));
 			product.setReDate(rs.getString("re_date"));
 			product.setInfo(rs.getString("info"));
@@ -118,11 +118,11 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			disconnect();
 		}
 		
-		System.out.println(" 상품코드  상품명   단가    거래처    등록일     비고");
+		System.out.println(" 상품코드  상품명   단가    재고수량    거래처    등록일     비고");
 		System.out.println(" ------------------------------------------");
 		for (int i = 0; i < productlist.size(); i++) {
-			System.out.printf(" %s  %s  %d   %s   %s   %s\n", productlist.get(i).getpCode(),  productlist.get(i).getpName(),productlist.get(i).getPrice()//
-					,productlist.get(i).getPartner(), productlist.get(i).getReDate(), productlist.get(i).getInfo());
+			System.out.printf(" %s  %s  %d   %d    %s   %s   %s\n", productlist.get(i).getpCode(), productlist.get(i).getpName(),productlist.get(i).getPrice()//
+					,productlist.get(i).getTotal(), productlist.get(i).getPartner(), productlist.get(i).getReDate(), productlist.get(i).getInfo());
 			
 		}//end of for.
 		

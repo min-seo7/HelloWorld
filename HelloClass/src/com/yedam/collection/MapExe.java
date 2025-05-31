@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 /*
  * Map 컬랙션.
@@ -95,85 +95,85 @@ public class MapExe {
 		
 }// end of main.
 
-	public static void exe2() {// 아이디(키값), 비밀번호(value)로 키값 대조 후 value 일치 확인.
-		Map<String, String> map;
-		map = new HashMap<String, String>();
-
-		map.put("user01", "1111");
-		map.put("user02", "2222");
-		map.put("user03", "3333");
-		map.put("user04", "4444");
-
-		while (true) {
-			Scanner scn = new Scanner(System.in);
-			System.out.println("아이디를 입력>> ");
-			String id = scn.nextLine();
-			System.out.println("비밀번호 입력>> ");
-			String pw = scn.nextLine();
-
-			if (map.containsKey(id)) { // 키값(아이디)가 있는지 확인하고 비밀번호 비교.
-				if (map.get(id).equals(pw)) { // get(id)는 키값으로 value 출력으로 입력된 pw랑 비교.
-					System.out.println("로그인되었습니다.");
-					break;
-				}
-				System.out.println("비밀번호가 일치하지 않습니다."); // 첫번째 if문(id)true, 두번째 if문 false.
-			} else {
-				System.out.println("입력하신 아이디가 없습니다.");
-			}
-		}
-
-		// 자바객체(map)을 json형식 문자열 출력.
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(map);
-		System.out.println(json);
-
-	}
-
-	public static void exe() {
-
-		Map<String, Integer> map = new HashMap<String, Integer>();
-
-		// 객체추가.
-		map.put("홍길동", 80);
-		map.put("김민수", 70);
-		map.put("홍길동", 85); // 키값은 중복불가. --> 기존 "홍길동"에 점수가 변경됨. 새로운 추가xxxxxxxxxxxx
-		map.put("박철민", 90);
-		map.put("박민철", 60);
-
-		// 자바객체(map)를 JSON형식의 문자열 출력. ==> 외부 Gson라이브러리 추가해 둠!
-		Gson gson = new GsonBuilder()/* .setPrettyPrinting() */.create(); // .setPrettyPrinting() 출력형태 변경가능.
-		String json = gson.toJson(map);
-		System.out.println(json); // {"박민철":60,"홍길동":85,"김민수":70,"박철민":90}형식으로 출력됨.
-
-		// 조회.(키로 값출력)
-		Integer score = map.get("김민수"); // 출력할 값의 타입으로 저장될 변수지정.
-		score = map.get("홍길동");
-		System.out.println(score); // 85가 출력됨.
-
-		// 삭제.
-		map.remove("홍길동");
-
-		// 반복 2가지방식.
-		// 1)value만 획득방식
-		// ①키값을 set 컬랙션으로 획득하고, ②획득한 key값으로 value 획득. (키값으로 조회x)
-		Set<String> keyset = map.keySet(); // 키값으로 타입지정. set컬랙션 활용됨.
-		// set컬랙션의 반복자를 활용해 키값 출력.
-		Iterator<String> iter = keyset.iterator();
-
-		while (iter.hasNext()) { // .hasNext : 다음값이 있는지 체크하는 메소드.
-			String key = iter.next(); // 반복요소 획득.
-			Integer value = map.get(key);
-			System.out.printf("키: %s, 값: %d\n", key, value);
-
-		}
-
-		// 2) {키 : value}(=map.enty타입)구성으로 반환.
-		// ①map.enty타입을 set 컬랙션으로 획득 후 {키와 value}획득.
-		Set<Entry<String, Integer>> entryset = map.entrySet();
-		Iterator<Entry<String, Integer>> iter2 = entryset.iterator();
-		while (iter2.hasNext()) {
-			Entry<String, Integer> entry = iter2.next();
-			System.out.printf("키: %s, 값: %d\n", entry.getKey(), entry.getValue());
-		}
-	}
+//	public static void exe2() {// 아이디(키값), 비밀번호(value)로 키값 대조 후 value 일치 확인.
+//		Map<String, String> map;
+//		map = new HashMap<String, String>();
+//
+//		map.put("user01", "1111");
+//		map.put("user02", "2222");
+//		map.put("user03", "3333");
+//		map.put("user04", "4444");
+//
+//		while (true) {
+//			Scanner scn = new Scanner(System.in);
+//			System.out.println("아이디를 입력>> ");
+//			String id = scn.nextLine();
+//			System.out.println("비밀번호 입력>> ");
+//			String pw = scn.nextLine();
+//
+//			if (map.containsKey(id)) { // 키값(아이디)가 있는지 확인하고 비밀번호 비교.
+//				if (map.get(id).equals(pw)) { // get(id)는 키값으로 value 출력으로 입력된 pw랑 비교.
+//					System.out.println("로그인되었습니다.");
+//					break;
+//				}
+//				System.out.println("비밀번호가 일치하지 않습니다."); // 첫번째 if문(id)true, 두번째 if문 false.
+//			} else {
+//				System.out.println("입력하신 아이디가 없습니다.");
+//			}
+//		}
+//
+//		// 자바객체(map)을 json형식 문자열 출력.
+////		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		String json = gson.toJson(map);
+//		System.out.println(json);
+//
+//	}
+//
+//	public static void exe() {
+//
+//		Map<String, Integer> map = new HashMap<String, Integer>();
+//
+//		// 객체추가.
+//		map.put("홍길동", 80);
+//		map.put("김민수", 70);
+//		map.put("홍길동", 85); // 키값은 중복불가. --> 기존 "홍길동"에 점수가 변경됨. 새로운 추가xxxxxxxxxxxx
+//		map.put("박철민", 90);
+//		map.put("박민철", 60);
+//
+//		// 자바객체(map)를 JSON형식의 문자열 출력. ==> 외부 Gson라이브러리 추가해 둠!
+////		Gson gson = new GsonBuilder()/* .setPrettyPrinting() */.create(); // .setPrettyPrinting() 출력형태 변경가능.
+//		String json = gson.toJson(map);
+//		System.out.println(json); // {"박민철":60,"홍길동":85,"김민수":70,"박철민":90}형식으로 출력됨.
+//
+//		// 조회.(키로 값출력)
+//		Integer score = map.get("김민수"); // 출력할 값의 타입으로 저장될 변수지정.
+//		score = map.get("홍길동");
+//		System.out.println(score); // 85가 출력됨.
+//
+//		// 삭제.
+//		map.remove("홍길동");
+//
+//		// 반복 2가지방식.
+//		// 1)value만 획득방식
+//		// ①키값을 set 컬랙션으로 획득하고, ②획득한 key값으로 value 획득. (키값으로 조회x)
+//		Set<String> keyset = map.keySet(); // 키값으로 타입지정. set컬랙션 활용됨.
+//		// set컬랙션의 반복자를 활용해 키값 출력.
+//		Iterator<String> iter = keyset.iterator();
+//
+//		while (iter.hasNext()) { // .hasNext : 다음값이 있는지 체크하는 메소드.
+//			String key = iter.next(); // 반복요소 획득.
+//			Integer value = map.get(key);
+//			System.out.printf("키: %s, 값: %d\n", key, value);
+//
+//		}
+//
+//		// 2) {키 : value}(=map.enty타입)구성으로 반환.
+//		// ①map.enty타입을 set 컬랙션으로 획득 후 {키와 value}획득.
+//		Set<Entry<String, Integer>> entryset = map.entrySet();
+//		Iterator<Entry<String, Integer>> iter2 = entryset.iterator();
+//		while (iter2.hasNext()) {
+//			Entry<String, Integer> entry = iter2.next();
+//			System.out.printf("키: %s, 값: %d\n", entry.getKey(), entry.getValue());
+//		}
+//	}
 }

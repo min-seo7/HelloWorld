@@ -61,7 +61,7 @@ public class ProductApp {
 			case 1: // 조회 [월별재고조회, 입고조회, 출고조회]//[상품코드조회, 상품명조회]
 				System.out.println("                👀 조회  👀              ");
 				System.out.println(" -----------------------------------------------");
-				System.out.println("           1. 압츌고조회    |   2. 상품조회  ");
+				System.out.println("           1. 입출고조회    |   2. 상품조회  ");
 				System.out.println(" -----------------------------------------------");
 				System.out.print("\n  진행할 업무를 선택하세요 >>  ");
 				selectTask = Integer.parseInt(scn.nextLine());
@@ -92,20 +92,21 @@ public class ProductApp {
 					break;
 				case 2:// 상품조회
 					System.out.println("                👀 조회  👀              ");
-					System.out.println(" -----------------------------------------------");
-					System.out.println("      1. 상품코드조회   |   2. 상품명조회 | 3. 거래처조회 ");
-					System.out.println(" -----------------------------------------------");
+					System.out.println(" ---------------------------------------");
+					System.out.println("      1. 상품코드조회   |   2. 상품명조회 |");
+					System.out.println(" ------------------------------------");
 					System.out.print("\n  진행할 업무를 선택하세요 >>  ");
 					selectTask= Integer.parseInt(scn.nextLine());
 					switch(selectTask) {
 					case 1://상품코드조회
 						System.out.print("조회할 상품코드를 입력해주세요.>>");
+						pCode = scn.nextLine();
+						qr.pCodeInquiry(pCode);
 						break;
 					case 2://상품명조회
 						System.out.print("조회할 상품명을 입력해주세요.>>");
-						break;
-					case 3://상품명조회
-						System.out.print("조회할 거래처을 입력해주세요.>>");
+						pName = scn.nextLine();
+						qr.pNameInquiry(pName);
 						break;
 					}
 					break;
