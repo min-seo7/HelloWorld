@@ -11,6 +11,7 @@ public class StockDetail {
 	private String pCode;
 	private String pName;
 	private int price;
+	private int total;
 	private String partner;
 	private String reDate; // 등록일 sysdate
 	private String info;
@@ -20,7 +21,6 @@ public class StockDetail {
 	private String inOut;
 	private int ea;
 	private String location;
-	private int total;
 	private String issueDate;
 	private String modifyCheck;
 	private int mEmpno;
@@ -48,10 +48,7 @@ public class StockDetail {
 		this.issueDate = issueDate;
 		this.modifyCheck = modifyCheck;
 		this.mEmpno = mEmpno;
-		this.memo = memo;
-		
-		
-		
+		this.memo = memo;	
 	}
 	
 	public StockDetail(String pCode, String pName, int orderNumber, String inOut, int ea, String issueDate) {
@@ -63,8 +60,30 @@ public class StockDetail {
 		this.issueDate = issueDate;
 	}
 	
+	public StockDetail(String pCode, String pName, int orderNumber, String inOut, int ea, String location,
+			String issueDate) {
+		this.pCode = pCode;
+		this.pName = pName;
+		this.orderNumber = orderNumber;
+		this.inOut = inOut;
+		this.ea = ea;
+		this.location = location;
+		this.issueDate = issueDate;
+	}
 	
-	
+	public StockDetail(String name, String pCode, String pName, int orderNumber, String inOut, int ea, String location,
+			String issueDate, String memo) {
+		this.name = name;
+		this.pCode = pCode;
+		this.pName = pName;
+		this.orderNumber = orderNumber;
+		this.inOut = inOut;
+		this.ea = ea;
+		this.location = location;
+		this.issueDate = issueDate;
+		this.memo = memo;
+	}
+	//getter
 	public int getEmpno() {
 		return empno;
 	}

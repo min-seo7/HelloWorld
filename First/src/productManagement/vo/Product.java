@@ -5,6 +5,7 @@ public class Product {
 	private String pCode;
 	private String pName;
 	private int price;
+	private String total;
 	private String partner;
 	private String reDate; // 등록일 sysdate
 	private String info;
@@ -18,16 +19,19 @@ public class Product {
 		this.partner = patner;
 		this.info = info;
 	}
-	public Product(String pCode, String pName, int price, String partner, String reDate, String info) {
+	
+	
+	
+	public Product(String pCode, String pName, int price, String total, String partner, String reDate, String info) {
+		super();
 		this.pCode = pCode;
 		this.pName = pName;
 		this.price = price;
+		this.total = total;
 		this.partner = partner;
 		this.reDate = reDate;
 		this.info = info;
 	}
-	
-	
 	//getter
 	public String getpCode() {
 		return pCode;
@@ -38,6 +42,9 @@ public class Product {
 	public int getPrice() {
 		return price;
 	}
+	public String getTotal() {
+		return total;
+	}
 	public String getPartner() {
 		return partner;
 	}
@@ -47,6 +54,7 @@ public class Product {
 	public String getInfo() {
 		return info;
 	}
+	
 	//setter
 	public void setpCode(String pCode) {
 		this.pCode = pCode;
@@ -57,6 +65,9 @@ public class Product {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
 	public void setPartner(String partner) {
 		this.partner = partner;
 	}
@@ -65,6 +76,6 @@ public class Product {
 	}
 	public void setInfo(String info) {
 		this.info = info;
-	} 
+	}
 		
 }

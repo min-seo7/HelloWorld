@@ -7,6 +7,7 @@ public class EmpInfo {
 	private String pw;
 	private String level;
 	
+	
 	//생성자
 	public EmpInfo(){}
 	public EmpInfo(int empno, String name, String pw, String level) {
@@ -15,15 +16,18 @@ public class EmpInfo {
 		this.pw = pw;
 		this.level = level;
 	}
+	
+	
+	
 	//getter&setter
-	public int getNo() {
+	
+
+	public int getEmpno() {
 		return empno;
 	}
-
-	public void setNo(int empno) {
+	public void setEmpno(int empno) {
 		this.empno = empno;
 	}
-
 	public String getName() {
 		return name;
 	}

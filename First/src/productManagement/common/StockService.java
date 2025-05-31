@@ -11,9 +11,8 @@ public class StockService extends Dbconnect implements StockDAO {
 	@Override
 	public void addStock(Stock stock) {// 추가
 		
-		int last = total( ); //기존재고량 
-		
-		String sql = "insert into stock_t(p_code, in_out, ea, location,  emp_no, total )" + "values(?,?,?,?,?,?)";   
+		String sql = "insert into stock_t(p_code, in_out, ea, location, emp_no)" 
+		              + "values(?,?,?,?,?)";   
 		getConnect();
 		int r = 0;
 		try {
@@ -21,9 +20,7 @@ public class StockService extends Dbconnect implements StockDAO {
 			psmt.setString(1, stock.getpCode());
 			psmt.setInt(3, stock.getEa());
 			psmt.setString(4, stock.getLocation());
-			psmt.setInt(5, stock.getEmpno());
-			psmt.setInt(6,stock.getEa() + last ); //기존재고 + 입/출고수량
-			
+			psmt.setInt(5, stock.getEmpno());			
 			if(stock.getEa() < 0) {
 				psmt.setString(2, "OUT"); 
 			} else if(stock.getEa() > 0){
@@ -33,19 +30,20 @@ public class StockService extends Dbconnect implements StockDAO {
 			r = psmt.executeUpdate();
 			if (r == 1) {
 				System.out.println("등록완료.");
-				System.out.println(last);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
+		total(stock.getpCode(), stock.getEa()); //기존재고량 
 
 	}
 
 	@Override   
 	public void modifyStock(int oderNumber, String pCode, int ea, String location, int empNO, String memo) {// 수정   
-		String sql = "update stock_t" 
+		String sql = "select ea from stock_t where order_number = ?";
+		String sql2 = "update stock_t" 
 					  + "  set p_code = ?" 
 				      +"      ,in_out = ?" 
 					  +"	  ,ea = ?" 
@@ -54,12 +52,22 @@ public class StockService extends Dbconnect implements StockDAO {
 					  +"      ,modify_emp= ?"
 				      +"      ,memo = ?"
 					  + "where order_number = ? ";
-
+		int beforeEa = 0;
+		
 		getConnect();
 
 		int r = 0;
 		try {
+			//1차쿼리 [변동전 기존재고] 
 			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, oderNumber);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				beforeEa = rs.getInt("ea");	
+				System.out.println("기존주문수량 추출완료");
+				System.out.println( beforeEa);
+			}
+			psmt = conn.prepareStatement(sql2);
 			psmt.setString(1, pCode);
 			if(ea < 0) {
 				psmt.setString(2, "OUT"); 
@@ -82,6 +90,8 @@ public class StockService extends Dbconnect implements StockDAO {
 		} finally {
 			disconnect();
 		}
+		
+		moodifytotal(beforeEa, pCode, ea);
 		
 	}
 
@@ -111,8 +121,8 @@ public class StockService extends Dbconnect implements StockDAO {
 		String sql = "select * from stock_t order by order_number desc";
 		List<Stock> inoutlist = new ArrayList<>();
 
-		getConnect();
-
+		getConnect();		
+		
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
@@ -156,25 +166,73 @@ public class StockService extends Dbconnect implements StockDAO {
 	}// end of stockList.
 
 	@Override
-	public int total( ) {  //total 컬럼 마지막 값 받아서 리턴.
-		String sql = "select total from stock_t where issue_date in(select MAX(issue_date)from stock_t)";
+	public void total(String pCode, int ea) {  //상품등록시 재고변동
+		int total = 0;
+		String sql = "select total from product_t where p_code = ?";
+		String sql2 = "update product_t set total = ? where p_code = ?";
 		
 		getConnect();
 		
-		int total_row = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, pCode);
 			rs = psmt.executeQuery();
-			while (rs.next()) {
-				total_row = rs.getInt("total");				
-			}
+			if (rs.next()) {
+				 total = rs.getInt("total");	
+				 System.out.println("재고 수정완료.");
+				}
+			
+			psmt = conn.prepareStatement(sql2); 
+			psmt.setInt(1, ea + total);
+			psmt.setString(2, pCode);
+			rs = psmt.executeQuery();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
+	}
 		
-		return total_row;
+		public void moodifytotal(int beforeEa, String pCode, int ea) {  
+			//상품등록시 재고변동[해당주문번호 수랑추출, 기존재고 추출, 주문수량 + 기존재고 반영, 수정값 반영]
+			int beforTotal = 0;
+			int total = 0;
+			int nowTotal = 0;
+			String sql = "select total from product_t where p_code = ?";
+			String sql2 = "update product_t set total = ? where p_code = ?";
+			String sql3 = "update product_t set total = ? where p_code = ?";
+			
+			getConnect();
+			
+			try {//1차쿼리
+				psmt = conn.prepareStatement(sql); 
+				psmt.setString(1, pCode);
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					beforTotal = rs.getInt("total");
+					System.out.println("현재고 추출");
+					System.out.println(beforTotal);
+				}
+				//2차쿼리
+				psmt = conn.prepareStatement(sql2);
+				psmt.setInt(1, nowTotal = total-(beforeEa));
+				psmt.setString(2, pCode);
+				rs = psmt.executeQuery();
+				System.out.println(nowTotal);
+				//3차쿼리
+				psmt = conn.prepareStatement(sql3);
+				psmt.setInt(1, nowTotal + ea);
+				psmt.setString(2, pCode);
+				rs = psmt.executeQuery();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				disconnect();
+			}
+		
+		
 	}// end of total
 }
 

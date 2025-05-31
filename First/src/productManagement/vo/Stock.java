@@ -8,7 +8,6 @@ public class Stock {
 	private int ea;
 	private String location;
 	private int empno;
-	private int total;
 	private String issueDate;
 	private String modifyCheck;
 	private int mEmpno;
@@ -23,7 +22,7 @@ public class Stock {
 		this.empno = empno;
 	}
 
-	public Stock(int orderNumber, String pCode, String inOut, int ea, String location, int empno, int total,
+	public Stock(int orderNumber, String pCode, String inOut, int ea, String location, int empno, 
 			String issueDate, String modifyCheck, int mEmpno, String memo) {
 		this.orderNumber = orderNumber;
 		this.pCode = pCode;
@@ -31,7 +30,6 @@ public class Stock {
 		this.ea = ea;
 		this.location = location;
 		this.empno = empno;
-		this.total = total;
 		this.issueDate = issueDate;
 		this.modifyCheck = modifyCheck;
 		this.mEmpno = mEmpno;
@@ -55,9 +53,6 @@ public class Stock {
 	}
 	public int getEmpno() {
 		return empno;
-	}
-	public int getTotal() {
-		return total;
 	}
 	public String getIssueDate() {
 		return issueDate;
@@ -89,9 +84,6 @@ public class Stock {
 	}
 	public void setEmpno(int empno) {
 		this.empno = empno;
-	}
-	public void setTotal(int total) {
-		this.total = total;
 	}
 	public void setIssueDate(String issueDate) {
 		this.issueDate = issueDate;

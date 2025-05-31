@@ -8,5 +8,6 @@ public interface StockDAO {
 	public void modifyStock(int oderNumber, String pCode, int ea, String location, int Mempno, String memo);
 	public void removeStock(int oderNumber);
 	public void stockList();
-	public int total(); // stock_t 마지막 재고수량 추출
+	public void total(String pCode, int Ea); 
+	public void moodifytotal(int ordernumber, String pCode, int ea);
 }

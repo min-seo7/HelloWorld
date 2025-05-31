@@ -61,7 +61,7 @@ public class ProductApp {
 			case 1: // 조회 [월별재고조회, 입고조회, 출고조회]//[상품코드조회, 상품명조회]
 				System.out.println("                👀 조회  👀              ");
 				System.out.println(" -----------------------------------------------");
-				System.out.println("           1. 재고조회    |   2. 상품조회  ");
+				System.out.println("           1. 압츌고조회    |   2. 상품조회  ");
 				System.out.println(" -----------------------------------------------");
 				System.out.print("\n  진행할 업무를 선택하세요 >>  ");
 				selectTask = Integer.parseInt(scn.nextLine());
@@ -70,19 +70,23 @@ public class ProductApp {
 				case 1: // 재고조회
 					System.out.println("                👀 조회  👀              ");
 					System.out.println(" -----------------------------------------------");
-					System.out.println("      1. 월별조회   |   2. 입고조회 | 3.출고조회 ");
+					System.out.println("      1. 월별조회   |   2. 입고/출 고조회 | 3. 변경조회");
 					System.out.println(" -----------------------------------------------");
 					System.out.print("\n  진행할 업무를 선택하세요 >>  ");
 					selectTask = Integer.parseInt(scn.nextLine());
 					switch(selectTask) {
 					case 1: //월별조회
-						System.out.println("조회할 년도와 월을 입력해주세요. (25-01)");
+						System.out.print("조회할 년도와 월을 입력해주세요. (25-01)");
 						String inputDate = scn.nextLine();
 						qr.monthInquiry(inputDate);
 						break;
 					case 2: //입고조회
+						System.out.println("IN-OUT");
+						String chooseInOut = scn.nextLine();
+						qr.inputInquiry(chooseInOut);
 						break;
-					case 3: //출고조회
+					case 3: //변경건만 조회
+						qr.modifyputInquiry();
 						break;
 					}
 					break;
@@ -126,9 +130,9 @@ public class ProductApp {
 				case 1: // 등록
 					System.out.print(" 상품코드  >>  ");
 					pCode = scn.nextLine();
-					System.out.print("    수량  >>  ");
+					System.out.print(" 수량  >>  ");
 					ea = Integer.parseInt(scn.nextLine());
-					System.out.print("    입/발주처  >>  ");
+					System.out.print(" 입/발주처  >>  ");
 					location = scn.nextLine();
 					
 					

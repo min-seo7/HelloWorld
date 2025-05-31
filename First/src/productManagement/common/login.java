@@ -20,7 +20,7 @@ public class login extends Dbconnect {
 
 			while (rs.next()) {
 				EmpInfo employee = new EmpInfo();
-				employee.setNo(rs.getInt("emp_no"));
+				employee.setEmpno(rs.getInt("emp_no"));
 				employee.setName(rs.getString("emp_name"));
 				employee.setPw(rs.getString("emp_pw"));
 				employee.setLevel(rs.getString("emp_level"));
@@ -40,7 +40,7 @@ public class login extends Dbconnect {
 		
 		boolean isTrue = false;
 		for (int i = 0; i < emplist.size(); i++) {
-			if (empNO == emplist.get(i).getNo() && empPw.equals(emplist.get(i).getPw())) {
+			if (empNO == emplist.get(i).getEmpno() && empPw.equals(emplist.get(i).getPw())) {
 				if (emplist.get(i).getLevel().equals("admin")) {
 					return "admin";
 				} else if (emplist.get(i).getLevel().equals("staff")) {
