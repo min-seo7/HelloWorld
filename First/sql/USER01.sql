@@ -53,12 +53,6 @@ where register_date in(select MAX(register_date)
 from stock_t);
 
 
-
-
-
-
-
-
 /*데이터*/
 -- emp 테이블에 데이터 삽입
 INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (1, 'John Doe', '1111', 'admin');
@@ -139,7 +133,6 @@ where modifycheck ='Y'
 order by issue_date asc;
                
 
---productservice 재고출력
-select total from product_t where p_code = 'P123';  --대문자.
-
-insert into target_table (p_code
+select *
+from product_t
+where p_name like '%du%';
