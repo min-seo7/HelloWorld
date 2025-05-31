@@ -145,16 +145,12 @@ public class ProductApp {
 					if ( position.equals("admin")) {
 						System.out.print(" 주문번호  >>  ");
 						oderNumber = Integer.parseInt(scn.nextLine());
-						System.out.print(" 상품코드  >>  ");
-						pCode = scn.nextLine();
 						System.out.print(" 변경수량  >>  ");
 						ea = Integer.parseInt(scn.nextLine());
-						System.out.println(" 변경할 업체명 >>");
-						location = scn.nextLine();
 						System.out.print(" 수정사유  >>  ");
 						String memo = scn.nextLine();
 						
-						stsvc.modifyStock(oderNumber, pCode, ea, location, empNO, memo);
+						stsvc.modifyStock(oderNumber, ea, empNO, memo);
 					} else {
 						System.out.println("🔏 수정권한이 없습니다. ");
 						continue;
