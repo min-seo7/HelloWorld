@@ -25,7 +25,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 					
 			r = psmt.executeUpdate();
 			if (r == 1) {
-				System.out.println("등록완료.");
+				System.out.println("  상품등록완료.");
 			}
 		} catch (SQLException e) {
 
@@ -36,11 +36,10 @@ public class ProductService extends Dbconnect implements ProductDAO {
 	}
 
 	@Override
-	public void modifyProduct(String pCode, String pname, int price, String partner, String info ) {
+	public void modifyProduct(String pCode, String pname, int price, String info ) {
 		String sql = "update product_t" 
 	                 + " set p_name = ?" 
 				     + "     ,price = ?" 
-	                 + "     ,partner = ?"
 	                 + "     ,info = ?"
 	                 + " where p_code = ?";
 		getConnect();
@@ -50,9 +49,8 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, pname);	
 			psmt.setInt(2, price);	
-			psmt.setString(3, partner);
-			psmt.setString(4, info);
-			psmt.setString(5, pCode);
+			psmt.setString(3, info);
+			psmt.setString(4, pCode);
 			
 			r = psmt.executeUpdate();
 			if(r == 1) {

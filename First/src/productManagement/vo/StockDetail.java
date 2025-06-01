@@ -27,6 +27,13 @@ public class StockDetail {
 	private String memo;
 	
 	public StockDetail() {}
+	
+	public StockDetail(String pCode, String pName, String partner) {
+		this.pCode = pCode;
+		this.pName = pName;
+		this.partner = partner;
+	}
+
 	public StockDetail(int empno, String name, String pw, String level, String pCode, String pName, int price,
 			String partner, String reDate, String info, int orderNumber, String inOut, int ea, String location,
 			int total, String issueDate, String modifyCheck, int mEmpno, String memo) {

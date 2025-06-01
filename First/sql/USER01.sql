@@ -31,7 +31,7 @@ CREATE TABLE product_t ( /*상품테이블 생성*/
     p_code VARCHAR2(20) PRIMARY KEY,
     p_name VARCHAR2(50) not null,
     price NUMBER(10) not null,
-    total number(20) not null,
+    total number(20),
     partner VARCHAR2(30),
     re_date varchar2(20) default to_char('YYYY-MM-DD'),
     info VARCHAR2(100) default '-'
@@ -201,3 +201,19 @@ JOIN stock_t s ON (e.emp_no = s.emp_no)
 JOIN product_t p ON (p.p_code = s.p_code)
 WHERE substr(s.issue_date, 1, 7) = '24/02'
 ORDER BY issue_date ASC;
+
+
+SELECT distinct p.p_code, 
+       p.p_name, 
+       p.partner,
+       p.price,
+       p.total
+FROM stock_t s 
+JOIN product_t p ON (p.p_code = s.p_code)
+where p.p_code = 'P002';
+
+
+--특정기간
+SELECT p_code, NVL(SUM(ea), 0) AS total_in FROM stock_t WHERE In_Out = 'IN' AND p_code = 'P002'
+            AND TO_DATE(issue_date, 'YYYY-MM-DD HH24:MI:SS') >= ADD_MONTHS(SYSDATE, -6) GROUP BY p_code;
+

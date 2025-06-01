@@ -115,7 +115,7 @@ public class ProductApp {
 						break;
 					case 2://
 						if ( position.equals("admin")) {
-						System.out.print(" 조회할 상품코드을 입력해주세요  >>  ");
+						System.out.print(" 상세조회할 상품코드을 입력해주세요  >>  ");
 						pCode = scn.nextLine();
 						qr.pCodeInquiry(pCode);
 						}else {
@@ -208,7 +208,7 @@ public class ProductApp {
 					pCode = scn.nextLine();
 					System.out.print(" 상품명  >>  ");
 					pName = scn.nextLine();
-					System.out.print(" 단가  >>");
+					System.out.print(" 단가  >>  ");
 				    price = Integer.parseInt(scn.nextLine());
 					System.out.print(" 거래처  >>  ");
 					patner = scn.nextLine();
@@ -222,16 +222,14 @@ public class ProductApp {
 					if(position.equals("admin")) {
 						System.out.print(" 상품코드  >>  ");
 						pCode = scn.nextLine();
-						System.out.print(" 상품명  >>  ");
+						System.out.print(" 변경될 상품명  >>  ");
 						pName = scn.nextLine();
-						System.out.print(" 단가  >>  ");
+						System.out.print(" 변경될 단가  >>  ");
 						price = Integer.parseInt(scn.nextLine());
-						System.out.println("  거래처  >>  ");
-						partner = scn.nextLine();
 						System.out.println(" 상품정보  >>  ");
 						info =  scn.nextLine();
 						
-						ptsvc.modifyProduct(pCode, pName, price, partner, info);
+						ptsvc.modifyProduct(pCode, pName, price, info);
 					}else {
 						System.out.println("  📞 담당자에게 문의하세요.  ");
 					}
