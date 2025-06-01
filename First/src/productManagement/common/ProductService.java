@@ -119,7 +119,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 		}
 		
 		System.out.println(" 상품코드  상품명   단가    재고수량    거래처    등록일     비고");
-		System.out.println(" ------------------------------------------");
+		System.out.println(" -----------------------------------------------------");
 		for (int i = 0; i < productlist.size(); i++) {
 			System.out.printf(" %s  %s  %d   %d    %s   %s   %s\n", productlist.get(i).getpCode(), productlist.get(i).getpName(),productlist.get(i).getPrice()//
 					,productlist.get(i).getTotal(), productlist.get(i).getPartner(), productlist.get(i).getReDate(), productlist.get(i).getInfo());

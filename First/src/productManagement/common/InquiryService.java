@@ -21,7 +21,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		sql = "select substr(s.issue_date,3,5) as issue_date, s.order_number, s.p_code, "
 				     + "p.p_name, s.In_Out, s.ea  from emp e join stock_t s on (e.emp_no = s.emp_no)  "
 				     + "join product_t p on(p.p_code = s.p_code) where substr(s.issue_date,3,5) = ?"
-					+ "order by issue_date asc";
+					+ "order by s.order_number asc";
 
 		List<StockDetail> detailList = new ArrayList<>();
 		getConnect();
@@ -47,17 +47,22 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		} finally {
 			disconnect();
 		}
-		
-		
-		System.out.println("등록일     주문번호   상품코드   상품명   입/출고     수량");
-		System.out.println("-------------------------------------------------");
+		if (detailList.isEmpty()) {
+		    System.out.println("      🙅‍♂️ 해당기간 데이터가 없습니다.");
+		} else {
+		System.out.println("");
+		System.out.println("");
+		System.out.printf("                           %s 입고/출고\n", inputDate);
+		System.out.println("");
+		System.out.printf("  %-7s %-3s %-5s   %-30s    %-5s   %-6s \n","년/월", "주문번호", "상품코드", "상품명", "입/출고", "수량" );
+		System.out.println("-----------------------------------------------------------------------------------");
 		for (int i = 0; i < detailList.size(); i++) {
-			System.out.printf(" %s, %d, %s,  %s, %s, %d\n", detailList.get(i).getIssueDate(), detailList.get(i).getOrderNumber()//
+			System.out.printf("  %-7s  %-5s  %-7s %-35s %-5s %-2s \n", detailList.get(i).getIssueDate(), detailList.get(i).getOrderNumber()//
 					, detailList.get(i).getpCode(),detailList.get(i).getpName()//
 					, detailList.get(i).getInOut(), detailList.get(i).getEa());
 		}
 		
-		
+		}
 	}
 
 	@Override
@@ -94,10 +99,14 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		} finally {
 			disconnect();
 		}
-		System.out.println("입/출고     주문번호     상품코드    상품명   수량    지역     등록일");
-		System.out.println("--------------------------------------------------------");
+		System.out.println("");
+		System.out.println("");
+		System.out.printf("                   %s 내역\n", chooseInOut);
+		System.out.println("");
+		System.out.printf(" %-5s %-3s %-5s %-30s  %-5s   %-5s   %-20s\n","입/출고", "주문번호", "상품코드", "상품명", "수량", "지역", "등록일");
+		System.out.println("-----------------------------------------------------------------------------------");
 		for (int i = 0; i < detailList.size(); i++) {
-			System.out.printf("%s    %d    %s   %s   %d    %s    %s\n", detailList.get(i).getInOut(), detailList.get(i).getOrderNumber()//
+			System.out.printf(" %-5s %-3s %-5s %-35s  %-5s   %-5s   %-20s\n", detailList.get(i).getInOut(), detailList.get(i).getOrderNumber()//
 					,detailList.get(i).getpCode(), detailList.get(i).getpName(), detailList.get(i).getEa()
 					,detailList.get(i).getLocation(), detailList.get(i).getIssueDate() );
 			
@@ -138,10 +147,14 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 			} finally {
 				getConnect();
 			}
-			System.out.println("입/출고   주문번호   상품코드    상품명    수량    지역    수정직원      사유     등록일");
-			System.out.println("-----------------------------------------------------------------------");
+			System.out.println("");
+			System.out.println("");
+			System.out.printf("                    입출고 변경건 \n");
+			System.out.println("");
+			System.out.printf(" %-7s %-3s %-7s %-30s %-5s %-7s %-7s %-10s %-20s\n","입/출고", "주문번호", "상품코드", "상품명", "수량", "지역", "수정직원", "비고","등록일");
+			System.out.println("------------------------------------------------------------------------------------------------------------------------");
 			for (int i = 0; i < detailList.size(); i++) {
-				System.out.printf(" %s   %d    %s     %s    %d    %s   %s   %s    %s\n", detailList.get(i).getInOut(), detailList.get(i).getOrderNumber()//
+				System.out.printf(" %-8s %-5s %-7s %-30s %-5s %-7s %-7s %-10s %-20s\n", detailList.get(i).getInOut(), detailList.get(i).getOrderNumber()//
 						,detailList.get(i).getpCode(), detailList.get(i).getpName(), detailList.get(i).getEa(), detailList.get(i).getLocation()//
 						, detailList.get(i).getName(), detailList.get(i).getMemo(), detailList.get(i).getIssueDate());
 				
@@ -150,12 +163,12 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 	}
 
 	@Override
-	public void pCodeInquiry(String pcode) {
+	public void pCodeInquiry(String pcode) {    //product말고 detail로 받아서 재고금액, 단가, 수량, 6개월 입고량 출
 		// [상품코드, 상품명,  단가, 재고수량, 거래처, 상품등록일, info]
 		List<Product> productList = new ArrayList<>();
 		String sql = "select * "
 				     + "from product_t"
-				     + "where lower(p_code) = ?";
+				     + "where lower(p_code) = lower(?)";
 		getConnect();
 		
 		try {
@@ -180,17 +193,21 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		}finally {
 			disconnect();
 		}
-		System.out.println("상품코드   상품명   단가   재고수량    거래처    등록일    상세정보");
+		System.out.println("");
+		System.out.println("");
+		System.out.printf("                  상품코드: %s\n", pcode);
+		System.out.println("");
+		System.out.printf(" %-8s %-30s    %-15s %-40s","상품코드", "상품명", "등록일", "상세정보");
+		System.out.println("------------------------------------------------------------------");
 		for (int i = 0; i < productList.size(); i++) {	
-			System.out.printf("%s    %s   %d   %d   %s   %s   %s", productList.get(i).getpCode()//
-					,productList.get(i).getpName(), productList.get(i).getPrice(), productList.get(i).getTotal()//
-					, productList.get(i).getPartner(), productList.get(i).getReDate(), productList.get(i).getInfo());
+			System.out.printf(" %-8s %-30s    %-15s %-40s", productList.get(i).getpCode()//
+					,productList.get(i).getpName(), productList.get(i).getReDate(), productList.get(i).getInfo());
 		}
 		
 	}
 
 	@Override
-	public void pNameInquiry(String pname) {
+	public void pNameInquiry(String pname) {  //상품명검색 
 		// productList.get(i).
 		List<Product> productList = new ArrayList<>();
 		String sql = "select * from product_t where p_name like ?";
@@ -217,11 +234,15 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		}finally {
 			disconnect();
 		}
-		System.out.println("상품코드   상품명   단가   재고수량    거래처    등록일    상세정보");
+		System.out.println("");
+		System.out.println("");
+		System.out.printf("                  키워드: %s\n", pname);
+		System.out.println("");
+		System.out.printf(" %-8s %-30s    %-15s %-40s\n","상품코드", "상품명", "등록일", "상세정보");
+		System.out.println("------------------------------------------------------------------------------------");
 		for (int i = 0; i < productList.size(); i++) {	
-			System.out.printf("%s    %s   %d   %d   %s   %s   %s\n", productList.get(i).getpCode()//
-					,productList.get(i).getpName(), productList.get(i).getPrice(), productList.get(i).getTotal()//
-					, productList.get(i).getPartner(), productList.get(i).getReDate(), productList.get(i).getInfo());
+			System.out.printf(" %-8s %-30s    %-15s %-40s\n", productList.get(i).getpCode()//
+					,productList.get(i).getpName(), productList.get(i).getReDate(), productList.get(i).getInfo());
 		}
 		
 	}

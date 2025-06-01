@@ -53,7 +53,7 @@ public class StockService extends Dbconnect implements StockDAO {
 		String pcode = findPcode(orderNumber);// 상품코드.
 		int ptotal = pCodeTotal(pcode); // 상품재고.
 		int beforeinOutEa = inOutEa(orderNumber); // 변경전 기존 입/출고수량
-
+		
 		// stpck테이블에 변경
 		getConnect();
 
@@ -74,12 +74,13 @@ public class StockService extends Dbconnect implements StockDAO {
 			r = psmt.executeUpdate();
 			if (r == 1) {
 				System.out.println("수정완료.");
+				int resetTotal = resetTotal(pcode, ptotal, beforeinOutEa); // 기존재고와 입출고수량 복원.
+				System.out.printf("품번%s  재고%d  직전%d 코드%s 원복%d 수량%d",pcode, ptotal, beforeinOutEa,pcode, resetTotal, ea);
+				updateTotal(pcode, resetTotal, ea); // 수정된 수량 최종반영.
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		int resetTotal = resetTotal(pcode, ptotal, beforeinOutEa); // 기존재고와 입출고수량 복원.
-		updateTotal(pcode, resetTotal, ea); // 수정된 수량 최종반영.
 
 	} // end of modify.
 
@@ -162,8 +163,8 @@ public class StockService extends Dbconnect implements StockDAO {
 	@Override
 	public void total(String pCode, int ea) { // 상품등록시 재고변동
 		int total = 0;
-		String sql = "select total from product_t where lower(p_code) = ?";
-		String sql2 = "update product_t set total = ? where lower(p_code) = ?";
+		String sql = "select total from product_t where p_code = ?";
+		String sql2 = "update product_t set total = ? where p_code = ?";
 
 		getConnect();
 
@@ -199,8 +200,6 @@ public class StockService extends Dbconnect implements StockDAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				beforeEa = rs.getInt("ea");
-				System.out.println("기존주문수량 추출완료");
-				System.out.println(beforeEa);
 			}
 
 		} catch (SQLException e) {
@@ -213,7 +212,7 @@ public class StockService extends Dbconnect implements StockDAO {
 
 	public int pCodeTotal(String pCode) { // 상품별 재고량.
 		int productTotal = 0;
-		String sql = "select total from product_t where lower(p_code) = ?";
+		String sql = "select total from product_t where p_code = ?";
 
 		getConnect();
 		try {
@@ -222,8 +221,6 @@ public class StockService extends Dbconnect implements StockDAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				productTotal = rs.getInt("total");
-				System.out.println("상품별 재고추출");
-				System.out.println(productTotal);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -256,7 +253,7 @@ public class StockService extends Dbconnect implements StockDAO {
 
 	@Override
 	public int resetTotal(String pcode, int num1, int num2) { // 기존재고를 원래대로.
-		String sql = "update product_t set total = ? where lower(p_code) = ?";
+		String sql = "update product_t set total = ? where p_code = ?";
 		int retotal = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -264,7 +261,7 @@ public class StockService extends Dbconnect implements StockDAO {
 			psmt.setString(2, pcode);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				System.out.println("기존재고로 복원되었습니다.");
+				System.out.println("");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -274,7 +271,7 @@ public class StockService extends Dbconnect implements StockDAO {
 
 	@Override
 	public void updateTotal(String pcode, int num1, int num2) { // 상품재고 + 입출고별 EA반영.
-		String sql = "update product_t set total = ? where lower(p_code) = ?";
+		String sql = "update product_t set total = ? where p_code = ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
