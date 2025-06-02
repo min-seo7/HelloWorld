@@ -11,7 +11,7 @@ import java.util.List;
 import productManagement.vo.EmpInfo;
 
 public class Dbconnect {
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String url = "jdbc:oracle:thin:@192.168.0.33:1521:xe";
 	String id = "user01";
 	String pass = "tiger";
 	Connection conn;
