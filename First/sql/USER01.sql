@@ -96,98 +96,61 @@ order by issue_date asc;
                
 /*데이터*/
 INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (1, '홍길동', '1111', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (2, '김영희', 'password456', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (3, '이철수', 'password789', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (4, '박지영', 'password321', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (5, '최민수', 'password654', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (6, '정은지', 'password987', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (7, '김정훈', 'password159', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (8, '송은주', 'password753', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (9, '이민호', 'password369', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (10, '강하늘', 'password741', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (11, '박상훈', 'password852', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (12, '오세미', 'password963', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (13, '홍석구', 'password741', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (14, '김상민', 'password852', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (15, '정유미', 'password159', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (16, '최수현', 'password753', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (17, '권유정', 'password369', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (18, '박지수', 'password741', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (19, '배진호', 'password852', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (20, '김지윤', 'password963', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (21, '이하늘', 'password741', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (22, '박상아', 'password852', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (23, '정현진', 'password159', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (24, '홍하린', 'password753', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (25, '임민정', 'password369', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (26, '박지혜', 'password741', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (27, '김은찬', 'password852', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (28, '이소희', 'password963', 'staff');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (29, '정수빈', 'password741', 'admin');
-INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (30, '김하진', 'password852', 'staff');
+INSERT INTO emp (emp_no, emp_name, emp_pw, emp_level) VALUES (2, '김영희', '2222', 'staff');
 
 
 INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P001', 'Apple 아이폰 14', 999, 1000, 'Apple', '2024-02-15', '스마트폰');
 INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P002', 'Samsung 갤럭시 S23', 899, 1200, 'Samsung', '2024-01-10', '스마트폰');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P003', 'Sony WH-1000XM5', 350, 500, 'Sony', '2024-03-01', '무선 헤드폰');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P004', 'Dell XPS 13', 1200, 800, 'Dell', '2024-04-05', '노트북');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P005', 'LG OLED TV 65"', 2500, 300, 'LG', '2024-05-20', '4K OLED TV');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P006', 'Samsung QLED 55"', 1500, 500, 'Samsung', '2024-06-10', '4K QLED TV');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P007', 'Bose QuietComfort 45', 400, 400, 'Bose', '2024-02-25', '노이즈 캔슬링 헤드폰');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P008', 'Apple MacBook Pro 16"', 2500, 200, 'Apple', '2024-07-05', '노트북');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P009', 'Microsoft Surface Laptop 5', 1000, 1000, 'Microsoft', '2024-08-15', '노트북');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P010', 'Nikon D850 DSLR 카메라', 3000, 200, 'Nikon', '2024-09-30', '카메라');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P011', 'Apple Watch Ultra', 800, 600, 'Apple', '2024-01-25', '스마트워치');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P012', 'Sony PlayStation 5', 500, 1500, 'Sony', '2024-03-10', '게임 콘솔');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P013', 'Xbox Series X', 500, 1300, 'Microsoft', '2024-05-18', '게임 콘솔');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P014', 'Canon EOS R5', 4000, 100, 'Canon', '2024-02-12', '미러리스 카메라');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P015', 'JBL Charge 5', 150, 900, 'JBL', '2024-04-21', '포터블 스피커');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P016', 'Razer Kraken V3', 120, 700, 'Razer', '2024-07-14', '게이밍 헤드셋');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P017', 'Logitech G Pro X', 130, 1200, 'Logitech', '2024-08-01', '게이밍 헤드셋');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P018', 'GoPro HERO10', 450, 1000, 'GoPro', '2024-03-22', '액션 카메라');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P019', 'Asus ROG Strix', 1800, 400, 'Asus', '2024-07-03', '게이밍 노트북');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P020', 'Dyson V15 Detect', 700, 350, 'Dyson', '2024-04-01', '청소기');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P021', 'Apple iPad Pro', 1100, 800, 'Apple', '2024-01-11', '태블릿');
-INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P022', 'Bose SoundLink Flex', 220, 450, 'Bose', '2024-02-05', '포터블 스피커');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P003', 'LG OLED TV 65"', 2500, 300, 'LG', '2024-05-20', '4K OLED TV');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P004', 'Samsung QLED 55"', 1500, 500, 'Samsung', '2024-06-10', '4K QLED TV');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P005', 'Apple MacBook Pro 16"', 2500, 200, 'Apple', '2024-07-05', '노트북');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P006', 'Apple Watch Ultra', 800, 600, 'Apple', '2024-01-25', '스마트워치');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P007', 'Apple iPad Pro', 1100, 800, 'Apple', '2024-01-11', '태블릿');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P008', 'Apple 아이폰 15', 999, 1000, 'Apple', '2024-02-15', '스마트폰');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P009', 'Samsung 갤럭시 S24', 899, 1200, 'Samsung', '2024-01-10', '스마트폰');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P010', 'Apple 아이폰 16', 999, 1000, 'Apple', '2024-02-15', '스마트폰');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P011', 'Samsung 갤럭시 S25', 899, 1200, 'Samsung', '2024-01-10', '스마트폰');
+INSERT INTO product_t (p_code, p_name, price, total, partner, re_date, info) VALUES ('P012', 'LG OLED TV 85"', 2500, 300, 'LG', '2024-05-20', '4K OLED TV');
+
 
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P001', 'IN', 100, 'D010', 11, '입고 - 정기 발주');
+VALUES ('P001', 'IN', 100, 'D010', 1, '입고 - 정기 발주');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P002', 'IN', 150, 'D011', 12, '입고 - 대량 발주');
+VALUES ('P002', 'IN', 150, 'D011', 2, '입고 - 대량 발주');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P003', 'IN', 200, 'D012', 13, '입고 - 특급 주문');
+VALUES ('P003', 'IN', 200, 'D012', 3, '입고 - 특급 주문');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P004', 'IN', 50, 'D013', 14, '입고 - 한정판 주문');
+VALUES ('P004', 'IN', 50, 'D013', 4, '입고 - 한정판 주문');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P005', 'IN', 30, 'D014', 15, '입고 - 행사용');
+VALUES ('P005', 'IN', 30, 'D014', 5, '입고 - 행사용');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P006', 'IN', 100, 'D015', 16, '입고 - 매장용');
+VALUES ('P006', 'IN', 100, 'D015', 1, '입고 - 매장용');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P007', 'IN', 70, 'D016', 30, '입고 - 프로모션');
+VALUES ('P007', 'IN', 70, 'D016', 3, '입고 - 프로모션');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
 VALUES ('P008', 'IN', 20, 'D017', 8, '입고 - 사무용');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P009', 'IN', 80, 'D018', 10, '입고 - 세일');
+VALUES ('P009', 'IN', 80, 'D018', 1, '입고 - 세일');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P010', 'IN', 40, 'D019', 10, '입고 - 신제품 입고');
+VALUES ('P010', 'IN', 40, 'D019', 1, '입고 - 신제품 입고');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P001', 'OUT', -30, 'D010', 11, '출고 - 고객 주문');
+VALUES ('P001', 'OUT', -30, 'D010', 1, '출고 - 고객 주문');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P002', 'OUT', -20, 'D011', 12, '출고 - 반품');
+VALUES ('P002', 'OUT', -20, 'D011', 2, '출고 - 반품');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P003', 'OUT', -50, 'D012', 103, '출고 - 환불');
+VALUES ('P003', 'OUT', -50, 'D012', 3, '출고 - 환불');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P005', 'OUT', -10, 'D014', 105, '출고 - 고객 요청');
+VALUES ('P005', 'OUT', -10, 'D014', 5, '출고 - 고객 요청');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P006', 'OUT', -25, 'D015', 106, '출고 - 할인 판매');
+VALUES ('P006', 'OUT', -25, 'D015', 6, '출고 - 할인 판매');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P007', 'OUT', -10, 'D016', 18, '출고 - 프로모션');
+VALUES ('P007', 'OUT', -10, 'D016', 8, '출고 - 프로모션');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P008', 'OUT', -5, 'D017', 18, '출고 - 개인 판매');
+VALUES ('P008', 'OUT', -5, 'D017', 8, '출고 - 개인 판매');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P009', 'OUT', -40, 'D018', 19, '출고 - 고객 반품');
+VALUES ('P009', 'OUT', -40, 'D018', 9, '출고 - 고객 반품');
 INSERT INTO stock_t (p_code, In_Out, ea, location, emp_no, memo)
-VALUES ('P010', 'OUT', -15, 'D019', 19, '출고 - 행사용');
+VALUES ('P010', 'OUT', -15, 'D019', 9, '출고 - 행사용');
 
 
 SELECT substr(s.issue_date, 1, 7) AS issue_date, -- '2024/02' 형태로 추출

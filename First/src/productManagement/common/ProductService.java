@@ -25,7 +25,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 					
 			r = psmt.executeUpdate();
 			if (r == 1) {
-				System.out.println("  상품등록완료.");
+				System.out.println("\n                📌 상품등록완료.");
 			}
 		} catch (SQLException e) {
 
@@ -54,7 +54,8 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			
 			r = psmt.executeUpdate();
 			if(r == 1) {
-				System.out.println("수정완료.");	
+				System.out.println("\n           🙅‍♂️ 해당기간 데이터가 없습니다.");
+				System.out.println("\n                  ✏ 수정완료.");	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,7 +78,7 @@ public class ProductService extends Dbconnect implements ProductDAO {
 			r = psmt.executeUpdate();
 			
 			if (r == 1) {
-				System.out.println("삭제완료.");
+				System.out.println("\n                   ✂ 삭제완료.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,11 +116,14 @@ public class ProductService extends Dbconnect implements ProductDAO {
 		} finally {
 			disconnect();
 		}
-		
-		System.out.println(" 상품코드  상품명   단가    재고수량    거래처    등록일     비고");
-		System.out.println(" -----------------------------------------------------");
+		System.out.println("");
+		System.out.println("");
+		System.out.printf("                       상품 LIST    ");
+		System.out.println("");
+		System.out.printf(" %-5s %-20s    %-7s  %-7s %-7s %-10s %-15s\n","상품코드","상품명","단가","재고수량","거래처","등록일","비고");
+		System.out.println(" --------------------------------------------------------------------------------------------");
 		for (int i = 0; i < productlist.size(); i++) {
-			System.out.printf(" %s  %s  %d   %d    %s   %s   %s\n", productlist.get(i).getpCode(), productlist.get(i).getpName(),productlist.get(i).getPrice()//
+			System.out.printf(" %-5s  %-25s %-7s %-7s  %-7s  %-10s   %-15s\n", productlist.get(i).getpCode(), productlist.get(i).getpName(),productlist.get(i).getPrice()//
 					,productlist.get(i).getTotal(), productlist.get(i).getPartner(), productlist.get(i).getReDate(), productlist.get(i).getInfo());
 			
 		}//end of for.

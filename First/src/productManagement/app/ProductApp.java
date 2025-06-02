@@ -17,21 +17,19 @@ public class ProductApp {
 		StockService stsvc = new StockService();
 		ProductService ptsvc = new ProductService();
 		InquiryService qr = new InquiryService();
-	
 
 		String position;//
 		boolean run = true;
 		int selectTask = 0;
-		//로그인변수
+		// 로그인변수
 		int empNO;
 		String empPw;
-		//생성자변수
+		// 생성자변수
 		String pCode, pName, patner, location, info, partner;
 		int price, ea;
-		
-		
+
 		System.out.println("");
-	    System.out.println("");
+		System.out.println("");
 		System.out.println(" ==============================================");
 		System.out.println("");
 		System.out.println("               00상사 상품관리 프로그램");
@@ -43,18 +41,18 @@ public class ProductApp {
 		empNO = Integer.parseInt(scn.nextLine());
 		System.out.print(" 비밀번호입력  >>  ");
 		empPw = scn.nextLine();
-		
-			// 로그인창[]
-			while (run) {
-				position = login.loginM(empNO, empPw); //  position 리턴값: back, admin, staff
-				if (position.equals("back")) {
-					break;
-				}
+
+		// 로그인창[]
+		while (run) {
+			position = login.loginM(empNO, empPw); // position 리턴값: back, admin, staff
+			if (position.equals("back")) {
+				break;
+			}
 			System.out.println("");
-		    System.out.println("");
+			System.out.println("");
 			System.out.println("\n                   📝 업무 📝               ");
 			System.out.println(" -----------------------------------------------");
-			System.out.println("  1. 조회 | 2. 재고관리 | 3. 상품관리 | 4. 프로그램 종료 ");
+			System.out.println("  1. 조회 | 2. 입/출고관리 | 3. 상품관리 | 4. 프로그램 종료 ");
 			System.out.println(" -----------------------------------------------");
 			System.out.print("\n 진행할 업무를 선택하세요  >>  ");
 			selectTask = Integer.parseInt(scn.nextLine());
@@ -76,24 +74,24 @@ public class ProductApp {
 				case 1: // 재고조회
 					System.out.println("");
 					System.out.println("");
-					System.out.println(" \n                  👀 조회  👀              ");
+					System.out.println(" \n                  👀 조회 👀              ");
 					System.out.println(" -----------------------------------------------");
-					System.out.println("    1. 월별조회   |  2. 입고/출 고조회  |  3. 변경조회");
+					System.out.println("    1. 월별조회   |  2. 입고/출고조회  |  3. 변경조회");
 					System.out.println(" -----------------------------------------------");
 					System.out.print("\n 진행할 업무를 선택하세요  >>  ");
 					selectTask = Integer.parseInt(scn.nextLine());
-					switch(selectTask) {
-					case 1: //월별조회
+					switch (selectTask) {
+					case 1: // 월별조회
 						System.out.print(" 조회할 년도와 월을 입력해주세요  >> (25-01)  ");
 						String inputDate = scn.nextLine();
 						qr.monthInquiry(inputDate);
 						break;
-					case 2: //입고조회
+					case 2: // 입고조회
 						System.out.print(" IN-OUT  >>  ");
 						String chooseInOut = scn.nextLine();
 						qr.inputInquiry(chooseInOut);
 						break;
-					case 3: //변경건만 조회
+					case 3: // 변경건만 조회
 						qr.modifyputInquiry();
 						break;
 					}
@@ -106,20 +104,20 @@ public class ProductApp {
 					System.out.println("        1. 상품명조회      |      2. 상세조회   ");
 					System.out.println(" -----------------------------------------------");
 					System.out.print("\n 진행할 업무를 선택하세요  >>  ");
-					selectTask= Integer.parseInt(scn.nextLine());
-					switch(selectTask) {
-					case 1://상품코드조회
+					selectTask = Integer.parseInt(scn.nextLine());
+					switch (selectTask) {
+					case 1:// 상품코드조회
 						System.out.print(" 조회할 상품명 입력해주세요  >>  ");
 						pName = scn.nextLine();
 						qr.pNameInquiry(pName);
 						break;
 					case 2://
-						if ( position.equals("admin")) {
-						System.out.print(" 상세조회할 상품코드을 입력해주세요  >>  ");
-						pCode = scn.nextLine();
-						qr.pCodeInquiry(pCode);
-						}else {
-							System.out.println(" 🔏 상세조회권한이 없습니다. ");
+						if (position.equals("admin")) {
+							System.out.print(" 상세조회할 상품코드을 입력해주세요  >>  ");
+							pCode = scn.nextLine();
+							qr.pCodeInquiry(pCode);
+						} else {
+							System.out.println("\n            🔏 상세조회권한이 없습니다. ");
 							continue;
 						}
 						break;
@@ -132,61 +130,59 @@ public class ProductApp {
 			case 2: // 재고관리 권한으로 진입! 동일화면출력. 수정삭제불가.
 				System.out.println("");
 				System.out.println("");
-				System.out.println("\n                  📦 재고관리 📦            ");
+				System.out.println("\n                  📦 입/출고관리관리 📦            ");
 				System.out.println(" -----------------------------------------------");
 				System.out.println(" 1. 입/출고등록 | 2. 입/출고수정 | 3. 입/출고삭제 | 4. 목록 ");
 				System.out.println(" -----------------------------------------------");
 				System.out.println("");
-				System.out.print(" 진행할 업무를 선택하세요.  >>  ");
+				System.out.print(" 진행할 업무를 선택하세요  >>  ");
 				selectTask = Integer.parseInt(scn.nextLine());
 				System.out.println("");
 				System.out.println("");
-				
-				
-				int oderNumber = 0;//컬럼상 order_number
+
+				int oderNumber = 0;// 컬럼상 order_number
 				switch (selectTask) {
 				case 1: // 등록
 					System.out.print(" 상품코드  >>  ");
 					pCode = scn.nextLine();
-					System.out.print(" 수량  >>  ");
+					System.out.print(" 상품수량  >>  ");
 					ea = Integer.parseInt(scn.nextLine());
 					System.out.print(" 입/발주처  >>  ");
 					location = scn.nextLine();
-					
-					
+
 					Stock stock = new Stock(pCode, ea, location, empNO);
-					
+
 					stsvc.addStock(stock);
-					
+
 					continue;
 				case 2: // 수정(권한)
-					if ( position.equals("admin")) {
+					if (position.equals("admin")) {
 						System.out.print(" 주문번호  >>  ");
 						oderNumber = Integer.parseInt(scn.nextLine());
 						System.out.print(" 변경수량  >>  ");
 						ea = Integer.parseInt(scn.nextLine());
 						System.out.print(" 수정사유  >>  ");
 						String memo = scn.nextLine();
-						
+
 						stsvc.modifyStock(oderNumber, ea, empNO, memo);
 					} else {
-						System.out.println("      🔏 수정권한이 없습니다. ");
-						continue;
-					}
-					continue;
-				case 3: // 삭제(권한)
-					if(position.equals("admin")) {
-						System.out.print(" 삭제주문번호 >> ");
-						oderNumber = Integer.parseInt(scn.nextLine());
-						stsvc.removeStock(oderNumber);
-					}else {
-						System.out.println("     🚨 삭제권한이 없습니다. ");
+						System.out.println("\n             🔏 수정권한이 없습니다. ");
 						continue;
 					}
 					break;
-				case 4://목록
-					 stsvc.stockList();
-					 continue;
+				case 3: // 삭제(권한)
+					if (position.equals("admin")) {
+						System.out.print(" 삭제주문번호 >> ");
+						oderNumber = Integer.parseInt(scn.nextLine());
+						stsvc.removeStock(oderNumber);
+					} else {
+						System.out.println("\n             🚨 삭제권한이 없습니다. ");
+						continue;
+					}
+					break;
+				case 4:// 목록
+					stsvc.stockList();
+					continue;
 				}
 				break;
 			case 3: // 상품관리
@@ -201,25 +197,25 @@ public class ProductApp {
 				selectTask = Integer.parseInt(scn.nextLine());
 				System.out.println("");
 				System.out.println("");
-				
-				switch(selectTask) {
-				case 1: //상품등록
+
+				switch (selectTask) {
+				case 1: // 상품등록
 					System.out.print(" 상품코드  >>  ");
 					pCode = scn.nextLine();
 					System.out.print(" 상품명  >>  ");
 					pName = scn.nextLine();
 					System.out.print(" 단가  >>  ");
-				    price = Integer.parseInt(scn.nextLine());
+					price = Integer.parseInt(scn.nextLine());
 					System.out.print(" 거래처  >>  ");
 					patner = scn.nextLine();
 					System.out.println(" 상품정보  >>  ");
 					info = scn.nextLine();
 					Product product = new Product(pCode, pName, price, patner, info);
 					ptsvc.addProduct(product);
-					
+
 					continue;
-				case 2: //상품수정 (코드를 기준으로 상품명 & 단가 수정가능)
-					if(position.equals("admin")) {
+				case 2: // 상품수정 (코드를 기준으로 상품명 & 단가 수정가능)
+					if (position.equals("admin")) {
 						System.out.print(" 상품코드  >>  ");
 						pCode = scn.nextLine();
 						System.out.print(" 변경될 상품명  >>  ");
@@ -227,26 +223,27 @@ public class ProductApp {
 						System.out.print(" 변경될 단가  >>  ");
 						price = Integer.parseInt(scn.nextLine());
 						System.out.println(" 상품정보  >>  ");
-						info =  scn.nextLine();
-						
+						info = scn.nextLine();
+
 						ptsvc.modifyProduct(pCode, pName, price, info);
-					}else {
-						System.out.println("  📞 담당자에게 문의하세요.  ");
-					}
-					continue;
-				case 3: //상품삭제 - 상품코드
-					if(position.equals("admin")) {
-						System.out.print(" 삭제상품코드 >>  ");
-						pCode = scn.nextLine();
-						ptsvc.removeProduct(pCode);
-					}else {
-						System.out.println("  🔏 삭제권한이 없습니다. ");
+					} else {
+						System.out.println("\n           📞 담당자에게 문의하세요.  ");
 						continue;
 					}
 					break;
-				case 4: //상품목록
+				case 3: // 상품삭제 - 상품코드
+					if (position.equals("admin")) {
+						System.out.print(" 삭제상품코드 >>  ");
+						pCode = scn.nextLine();
+						ptsvc.removeProduct(pCode);
+						continue;
+					} else {
+						System.out.println("\n              🔏 삭제권한이 없습니다. ");
+						continue;
+					}
+				case 4: // 상품목록
 					ptsvc.ProductList();
-					continue;	
+					continue;
 				}
 			case 4: // 종료
 				run = false;
@@ -254,7 +251,7 @@ public class ProductApp {
 				break;
 
 			}// end of select.
-			
+
 		} // end of while.
 	}// end of ManagerExe
 }

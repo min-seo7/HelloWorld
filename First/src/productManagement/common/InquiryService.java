@@ -44,16 +44,16 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 			disconnect();
 		}
 		if (detailList.isEmpty()) {
-			System.out.println("      🙅‍♂️ 해당기간 데이터가 없습니다.");
+			System.out.println("\n           🙅‍♂️ 해당기간 데이터가 없습니다.");
 		} else {
 			System.out.println("");
 			System.out.println("");
 			System.out.printf("                           %s 입고/출고\n", inputDate);
 			System.out.println("");
-			System.out.printf("  %-7s %-3s %-5s   %-30s    %-5s   %-6s \n", "년/월", "주문번호", "상품코드", "상품명", "입/출고", "수량");
+			System.out.printf("  %-7s %-3s  %-5s   %-30s    %-5s   %-6s \n", "년/월", "주문번호", "상품코드", "상품명", "입/출고", "수량");
 			System.out.println("-----------------------------------------------------------------------------------");
 			for (int i = 0; i < detailList.size(); i++) {
-				System.out.printf("  %-7s  %-5s  %-7s %-35s %-5s %-2s \n", detailList.get(i).getIssueDate(),
+				System.out.printf("  %-7s   %-5s  %-7s %-35s %-5s %-2s \n", detailList.get(i).getIssueDate(),
 						detailList.get(i).getOrderNumber()//
 						, detailList.get(i).getpCode(), detailList.get(i).getpName()//
 						, detailList.get(i).getInOut(), detailList.get(i).getEa());
@@ -69,7 +69,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 
 		sql = "select s.in_out, s.order_number, s.p_code, p.p_name, s.ea, s.location, s.issue_date "
 				+ "from stock_t s join product_t p on (s. p_code = p.p_code) "
-				+ "where lower(s.in_out) = ? order by s.issue_date asc";
+				+ "where lower(s.in_out) = ? order by  s.order_number desc";
 		List<StockDetail> detailList = new ArrayList<>();
 		getConnect();
 
@@ -100,11 +100,11 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		System.out.println("");
 		System.out.printf("                   %s 내역\n", chooseInOut);
 		System.out.println("");
-		System.out.printf(" %-5s %-3s %-5s %-30s  %-5s   %-5s   %-20s\n", "입/출고", "주문번호", "상품코드", "상품명", "수량", "지역",
+		System.out.printf(" %-5s %-3s %-5s %-30s    %-5s   %-5s   %-20s\n", "입/출고", "주문번호", "상품코드", "상품명", "수량", "지역",
 				"등록일");
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------------");
 		for (int i = 0; i < detailList.size(); i++) {
-			System.out.printf(" %-5s %-3s %-5s %-35s  %-5s   %-5s   %-20s\n", detailList.get(i).getInOut(),
+			System.out.printf("   %-5s  %-3s  %-5s %-35s %-5s   %-5s   %-20s\n", detailList.get(i).getInOut(),
 					detailList.get(i).getOrderNumber()//
 					, detailList.get(i).getpCode(), detailList.get(i).getpName(), detailList.get(i).getEa(),
 					detailList.get(i).getLocation(), detailList.get(i).getIssueDate());
@@ -149,14 +149,14 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		}
 		System.out.println("");
 		System.out.println("");
-		System.out.printf("                    입출고 변경건 \n");
+		System.out.printf("                        입출고 변경건 \n");
 		System.out.println("");
-		System.out.printf(" %-7s %-3s %-7s %-30s %-5s %-7s %-7s %-10s %-20s\n", "입/출고", "주문번호", "상품코드", "상품명", "수량",
+		System.out.printf(" %-3s %-5s %-5s %-30s %-5s %-7s %-7s  %-10s   %-20s\n", "입/출고", "주문번호", "상품코드", "상품명", "수량",
 				"지역", "수정직원", "비고", "등록일");
 		System.out.println(
-				"------------------------------------------------------------------------------------------------------------------------");
+				"-------------------------------------------------------------------------------------------------------------------");
 		for (int i = 0; i < detailList.size(); i++) {
-			System.out.printf(" %-8s %-5s %-7s %-30s %-5s %-7s %-7s %-10s %-20s\n", detailList.get(i).getInOut(),
+			System.out.printf("  %-3s   %-5s  %-5s  %-30s  %-5s %-7s   %-7s %-10s  %-20s\n", detailList.get(i).getInOut(),
 					detailList.get(i).getOrderNumber()//
 					, detailList.get(i).getpCode(), detailList.get(i).getpName(), detailList.get(i).getEa(),
 					detailList.get(i).getLocation()//
@@ -199,12 +199,6 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 					detail.setpCode(rs.getString("p_code"));
 					detail.setpName(rs.getString("p_name"));
 					detail.setPartner(rs.getString("partner"));
-
-				
-					
-					 int price = rs.getInt("price");
-			         int total2 = rs.getInt("total");
-			         System.out.println("price: " + price + ", total: " + total2);
 					
 					detailList.add(detail);
 
@@ -236,7 +230,7 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		System.out.printf("                           상품코드: %s\n", pcode);
 		System.out.println("");
 		System.out.printf(" %-8s %-30s %-10s %-6s %-9s %-9s %-6s %-6s\n", "상품코드", "상품명", "거래처", "단가", "재고", "재고금액",  "최근 6개월 입고량", "& 출고량");
-		System.out.println("-----------------------------------------------------------------------------------------------------------");
+		System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
 		for (int i = 0; i < detailList.size(); i++) {
 			System.out.printf(" %-8s %-30s %-10s   %-6s  %-9s  %-9s      %-6s    %-6s", detailList.get(i).getpCode(),
@@ -277,10 +271,10 @@ public class InquiryService extends Dbconnect implements InquiryDAO {
 		System.out.println("");
 		System.out.printf("                  키워드: %s\n", pname);
 		System.out.println("");
-		System.out.printf(" %-8s %-30s    %-15s %-40s\n", "상품코드", "상품명", "등록일", "상세정보");
-		System.out.println("------------------------------------------------------------------------------------");
+		System.out.printf(" %-8s %-30s    %-15s %-40s\n", "상품코드", "상품명", "등록일", "상품정보");
+		System.out.println("---------------------------------------------------------------------");
 		for (int i = 0; i < productList.size(); i++) {
-			System.out.printf(" %-8s %-30s    %-15s %-40s\n", productList.get(i).getpCode()//
+			System.out.printf(" %-8s %-30s    %-15s    %-40s\n", productList.get(i).getpCode()//
 					, productList.get(i).getpName(), productList.get(i).getReDate(), productList.get(i).getInfo());
 		}
 

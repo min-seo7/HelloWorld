@@ -13,7 +13,7 @@ public class StockService extends Dbconnect implements StockDAO {
 	public void addStock(Stock stock) {// 추가
 
 		if (checking(stock.getpCode())) {
-			System.out.println("등록된 상품이 아닙니다. 등록을 진행헤주세요.");
+			System.out.println("\n       등록된 상품이 아닙니다. 등록을 진행해주세요.");
 			return;
 		}
 
@@ -34,7 +34,7 @@ public class StockService extends Dbconnect implements StockDAO {
 
 			r = psmt.executeUpdate();
 			if (r == 1) {
-				System.out.println("등록완료.");
+				System.out.println("\n                📌 등록완료.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,7 +54,7 @@ public class StockService extends Dbconnect implements StockDAO {
 		int ptotal = pCodeTotal(pcode); // 상품재고.
 		int beforeinOutEa = inOutEa(orderNumber); // 변경전 기존 입/출고수량
 		
-		// stpck테이블에 변경
+		// stock테이블에 변경
 		getConnect();
 
 		int r = 0;
@@ -73,9 +73,8 @@ public class StockService extends Dbconnect implements StockDAO {
 
 			r = psmt.executeUpdate();
 			if (r == 1) {
-				System.out.println("수정완료.");
+				System.out.println("\n                  ✏수정완료.");	
 				int resetTotal = resetTotal(pcode, ptotal, beforeinOutEa); // 기존재고와 입출고수량 복원.
-				System.out.printf("품번%s  재고%d  직전%d 코드%s 원복%d 수량%d",pcode, ptotal, beforeinOutEa,pcode, resetTotal, ea);
 				updateTotal(pcode, resetTotal, ea); // 수정된 수량 최종반영.
 			}
 		} catch (SQLException e) {
@@ -100,7 +99,7 @@ public class StockService extends Dbconnect implements StockDAO {
 			psmt.setInt(1, orderNumber);
 			r = psmt.executeUpdate();
 			if (r == 1) {
-				System.out.println("삭제완료.");
+				System.out.println("\n                   ✂ 삭제완료.");
 				resetTotal(pCode, pCodetotal, beforeEa);
 			}
 		} catch (SQLException e) {
@@ -142,11 +141,16 @@ public class StockService extends Dbconnect implements StockDAO {
 		} finally {
 			disconnect();
 		}
-		System.out.println(" 목록번호   상품코드   입고/출고   수량   입/발주처     등록일             등록사원    수정여부        비고");
-		System.out
-				.println("-------------------------------------------------------------------------------------------");
+		System.out.println("");
+		System.out.println("");
+		System.out.printf("                       입/출고 LIST    ");
+		System.out.println("");
+		System.out.printf(" %-5s %-20s    %-7s  %-7s %-7s %-10s %-15s\n","상품코드","상품명","단가","재고수량","거래처","등록일","비고");
+		System.out.println(" --------------------------------------------------------------------------------------------");
+		System.out.printf(" %-5s %-5s %-5s  %-7s %-7s %-20s %-6s %-5s %-15s\n","목록번호","상품코드","입고/출고","수량","입/발주처","등록일","등록사원","수정여부","비고");
+		System.out.println(" --------------------------------------------------------------------------------------------");
 		for (int i = 0; i < inoutlist.size(); i++) {
-			System.out.printf("   %d     %s      %s     %d      %s      %s        %s        %s     %s\n", //
+			System.out.printf("  %-5s %-5s    %-5s   %-5s   %-7s %-20s     %-6s  %-5s %-15s\n", //
 					inoutlist.get(i).getOrderNumber(), inoutlist.get(i).getpCode(), inoutlist.get(i).getInOut(),
 					inoutlist.get(i).getEa(), //
 					inoutlist.get(i).getLocation(), inoutlist.get(i).getIssueDate(), inoutlist.get(i).getEmpno(),
@@ -174,7 +178,6 @@ public class StockService extends Dbconnect implements StockDAO {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				total = rs.getInt("total");
-				System.out.println("재고 수정완료.");
 			}
 
 			psmt = conn.prepareStatement(sql2);
@@ -279,7 +282,7 @@ public class StockService extends Dbconnect implements StockDAO {
 			psmt.setString(2, pcode);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				System.out.println("최종수정 변경.");
+				System.out.println("");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -318,10 +321,10 @@ public class StockService extends Dbconnect implements StockDAO {
 
 		for (int i = 0; i < poductCheck.size(); i++) {
 			if (pcode.equals(poductCheck.get(i).getpCode())) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}// end
 
 }
