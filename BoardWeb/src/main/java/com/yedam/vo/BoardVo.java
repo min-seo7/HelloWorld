@@ -24,7 +24,7 @@ public class BoardVo {
 	private String title;
 	private String content;
 	private String writer;
-	private Date witeDate;
+	private Date writeDate;
 	private int readCnt;
 	
 	

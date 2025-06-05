@@ -3,44 +3,64 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.BoardMapper">
-  
-  <!-- 조회(selectBoard) -->
-  <select id="selectList" resultType="Board">
-    select * from tbl_board
-  </select>
-  
-  
-  <!-- 등록(insertBoard) -->
-  <insert id ="insertBoard" parameterType = "Board">
-  insert into tbl_board (board_no, title, content, writer)
-  values(board_seq.nextval, #{title}, #{content}, #{writer})  <!--#{} 컬럼명을 작성해 주면됨. -->
-  </insert>
-  
-  
-  
-  <!-- 수정(updateBoard) -->
-  <update id = "updateBoard" parameterType = "Board">
-  	update tbl_board
-  	<set>  <!--set 태그를 써주면 콤마맞춰줌. -->
-  	<if test = "title != null">
-  	    title = #{title}, 
-  	</if>
-    <if test = "content != null">
-    	content = #{content},
-    </if>
-    <if test = "writer != null">
-    	writer = #{writer}
-    </if>
-    </set>
-  	where board_no = #{boardNO}
-  </update>
-  
-  <!-- 삭제(deleteBoard) parameterType = "int" -->
-  <delete id = "deleteBoard" parameterType = "int">
-  delete from tbl_board
-  where board_no = #{bno}
-  </delete>
-  
-  
-  
+
+	<!-- 조회(selectBoard) -->
+	<select id="selectList" resultType="Board">  <!-- 전체조회라 매개변수 없음. -->
+		select * from tbl_board
+	</select>
+
+
+	<!-- 등록(insertBoard) -->
+	<insert id="insertBoard" parameterType="Board">
+		insert into tbl_board (board_no, title, content, writer)
+		values(board_seq.nextval, #{title}, #{content}, #{writer})  <!--#{} 컬럼명을 
+			작성해 주면됨. -->
+	</insert>
+
+	<!-- 상세조회 selectBoard -->
+	<select id="selectBoard" parameterType="int" resultType="Board">
+		select board_no
+		       ,title
+		       ,content
+		       ,writer
+		       ,write_date
+		       ,read_cnt
+	   from tbl_board 
+	   where board_no = #{bno}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id = "updateReadCnt" parameterType="int">
+	  update tbl_board
+	  set read_cnt = read_cnt + 1
+	  where board_no = #{bno}
+	</update>
+
+
+
+	<!-- 수정(updateBoard) -->
+	<update id="updateBoard" parameterType="Board">
+		update tbl_board
+		<set>  <!--set 태그를 써주면 콤마맞춰줌. -->
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="writer != null">
+				writer = #{writer}
+			</if>
+		</set>
+		where board_no = #{boardNO}
+	</update>
+
+	<!-- 삭제(deleteBoard) parameterType = "int" -->
+	<delete id="deleteBoard" parameterType="int">
+		delete from tbl_board
+		where board_no = #{bno}
+	</delete>
+
+
+
 </mapper>
