@@ -53,7 +53,7 @@ public class BoardServlet extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		// 상세조회
-		BoardService svc = new BoardServiceImpl();
+		BoardService svc = new BoardServiceImpl(); 
 		BoardVo board = svc.getBoard(Integer.parseInt(boardNo)); 
 
 //		BoardVo board = mapper.selectBoard(Integer.parseInt(boardNo)); // 페이지 번호에 맞게 출력되도록.
