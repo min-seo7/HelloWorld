@@ -50,8 +50,13 @@
   
  <!-- 페이징 정보를 활용. -->
   <%for(int p = paging.getStart(); p<= paging.getEnd(); p++) { %>
-  <li class="page-item"><a class="page-link" href="boardList.do?page=<%=p %>"><%=p %></a></li>
-  <%} %>
+ <%if(paging.getCurrentPage()==p) {%>
+ <li class="page-item active" aria-current="page"><a class="page-link" href="boardList.do?page=<%=p %>"><%=p %></a></li>
+  <%} else {%> 
+  <li class="page-item" ><a class="page-link" href="boardList.do?page=<%=p %>"><%=p %></a></li>
+ <%} %>
+  <% }%> 
+  
   
   <!-- 이후페이지 활성화. -->
   <%if(!paging.isNext()){ %>
