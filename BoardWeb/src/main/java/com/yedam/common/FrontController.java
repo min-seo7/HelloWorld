@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.control.AddBoardControl;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.ModifyBoardControl;
+import com.yedam.control.RemoveBoardControl;
 
 /*
  * M-V-C 중 Control역할.
@@ -27,11 +29,13 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// boardList.do - 글목록 출력사능.
-		
-		map.put("/boardList.do", new BoardListControl());
-		map.put("/board.do", new BoardControl());
-		map.put("/addBoard.do", new AddBoardControl());
+		//boardList.do - 글목록 출력기능.
+		//처리순서가 중요.
+		map.put("/boardList.do", new BoardListControl());  //글목록
+		map.put("/board.do", new BoardControl()); //상세화면
+		map.put("/addBoard.do", new AddBoardControl());  //등록
+		map.put("/modifyBoard.do", new ModifyBoardControl());  //수정
+		map.put("/removeBoard.do", new RemoveBoardControl()); //삭제
 	}
 
 	@Override
@@ -40,7 +44,7 @@ public class FrontController extends HttpServlet {
 		String uri = req.getRequestURI(); // /BoardWeb/boardList.do
 		String page = uri.substring(9); //   /boardList.do
 		Control sub = map.get(page);
-		sub.exec(req, resp);
+		sub.exec(req, resp); //
 		
 	}
 }

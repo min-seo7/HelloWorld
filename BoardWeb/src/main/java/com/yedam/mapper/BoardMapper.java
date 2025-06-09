@@ -9,6 +9,7 @@ import com.yedam.vo.BoardVo;
  */ 
 public interface BoardMapper { //기능들~ 
 	public List<BoardVo> selectList();   //boardmapper의 아이디값 기준. 
+	public List<BoardVo> selectListWithPaging(int page);  //페이징 SQL
 	public BoardVo selectBoard(int bno); //단건조회
 	public int updateReadCnt(int bno); //조회 count증가.
 	public int insertBoard(BoardVo board);
