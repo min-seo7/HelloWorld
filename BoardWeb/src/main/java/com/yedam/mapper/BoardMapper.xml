@@ -5,24 +5,34 @@
 <mapper namespace="com.yedam.mapper.BoardMapper">
 
 	<!-- 조회(selectBoard) -->
-	<select id="selectList" resultType="Board">  <!-- 전체조회라 매개변수 없음. -->
+	<select id="selectList" resultType="Board">  <!-- 전체조회라 매개변수 없음. -->  <!-- 아이디값은 BoardMapper.java에 정의해 둔 메소드이름과 동일해야함. -->
 		select * from tbl_board
 	</select>
 	
 
 	<!-- 페이징 조회 -->
-	<select id="selectListWithPaging" parameterType="Board" resultType ="Board">
+	<select id="selectListWithPaging" parameterType="Search" resultType ="Board">
 		select b.*
         from (select rownum rn, a.*
               from (select *
                     from tbl_board
+                    <choose>
+                    	<when test="searchCondition != null and searchCondition == 'T'.toString()">
+                    	   where title like '%'||#{keyword}||'%'
+                    	</when>
+                    	<when test="searchCondition != null and searchCondition == 'W'.toString()">
+                    	  where writer like '%'||#{keyword}||'%'
+                    	</when>
+                    	<when test="searchCondition != null and searchCondition == 'TW'.toString()">
+                    	  where (title like '%'||#{keyword}||'%') or (writer like '%'||#{keyword}||'%')
+                    	</when>
+                    </choose>
                     order by board_no desc) a) b
               where b.rn > (#{page} - 1) * 5
         <![CDATA[	                       
         and   b.rn <= #{page} * 5  
 		]]>
 	</select>   <!-- CDATA를 사용해서 <를 코드시작 sign이 아닌 대소비교로! -->
-
 
 
 	<!-- 등록(insertBoard) -->
@@ -53,6 +63,9 @@
 
 
 
+
+
+
 	<!-- 수정(updateBoard) -->
 	<update id="updateBoard" parameterType="Board">
 		update tbl_board
@@ -70,6 +83,8 @@
 		where board_no = #{boardNO}
 	</update>
 
+
+
 	<!-- 삭제(deleteBoard) parameterType = "int" -->
 	<delete id="deleteBoard" parameterType="int">
 		delete from tbl_board
@@ -77,5 +92,23 @@
 	</delete>
 
 
+
+	
+	
+	<!-- 전체건수 -->
+	<select id ="selectCount" parameterType="Search" resultType="int">
+	select count(1) from tbl_board
+	<choose>
+	<when test="searchCondition != null and searchCondition == 'T'.toString()">
+		where title like '%'||#{keyword}||'%'
+	</when>
+	<when test="searchCondition != null and searchCondition == 'W'.toString()">
+		where writer like '%'||#{keyword}||'%'
+	</when>
+	<when test="searchCondition != null and searchCondition == 'TW'.toString()">
+		where (title like '%'||#{keyword}||'%') or (writer like '%'||#{keyword}||'%')
+	</when>
+    </choose>
+	</select>
 
 </mapper>

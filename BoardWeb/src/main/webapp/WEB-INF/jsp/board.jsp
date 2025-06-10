@@ -1,13 +1,22 @@
+<%@page import="com.yedam.common.SearchDTO"%>
 <%@page import="com.yedam.vo.BoardVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="../include/header.jsp" /><!-- 헤더파일 연결 -->
 <%
 BoardVo board = (BoardVo) request.getAttribute("board");
+String pg = (String)request.getAttribute("page");
+String sc = (String)request.getAttribute("searchCondition");
+String kw = (String)request.getAttribute("keyword");
+String logId = (String) session.getAttribute("logId");
+
 %>
 <h3>상세화면</h3>
 <form action="modifyBoard.do">
 	<input type="hidden" name="bno" value="<%=board.getBoardNO()%>">
+	<input type="hidden" name="page" value="<%=pg%>">
+	<input type="hidden" name="searchCondition" value="<%=sc%>">
+	<input type="hidden" name="keyword" value="<%=kw%>">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
@@ -32,8 +41,13 @@ BoardVo board = (BoardVo) request.getAttribute("board");
 			<td colspan="3"><%=board.getWriteDate()%></td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center"><input type="submit" value="수정" class="btn btn-warning">
-				<button class="btn btn-danger" type="button">삭제</button></td>
+		<%if(board.getWriter().equals(logId)) { %>
+			   <td colspan="4" align="center"><input type="submit" value="수정" class="btn btn-warning">
+			   	<button class="btn btn-danger" type="button">삭제</button></td>
+			<%}else {%>
+				<td colspan="4" align="center"><input type="submit" value="수정" class="btn btn-warning" disabled>
+				<button class="btn btn-danger" type="button" disabled>삭제</button></td>
+			<%} %>
 		</tr>
 	</table>
 </form>

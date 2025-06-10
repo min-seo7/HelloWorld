@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:forward page="boardList.do"></jsp:forward>
 	<%
 	//자바코드를 쓸 수 있는 영역!  
 		
@@ -23,7 +24,7 @@
 	} //end of for.
 		//여기는 자바영역이여요!
 	BoardService svc = new BoardServiceImpl();
-	List<BoardVo> list = svc.boardList();
+	List<BoardVo> list = svc.boardList(1);
 	out.print("<ul>");  //java영역내에서도 out.print("")를 사용해서 html사용가능!
 	for(BoardVo board : list){
 	%>

@@ -6,11 +6,17 @@
 <h3>수정화면(modifyForm.jsp)</h3>
 <%
 BoardVo board = (BoardVo) request.getAttribute("board"); //modifycontroller의 req.setAttribute("board", board); 받음.
+String pg = (String)request.getAttribute("page");
+String sc = (String)request.getAttribute("searchCondition");
+String kw = (String)request.getAttribute("keyword");
 %>
 
 <form action="modifyBoard.do" method="post">
 	<!-- post방식은 주소에 파라메터 보이지 않음 -->
 	<input type="hidden" name="bno" value="<%=board.getBoardNO()%>">
+	<input type="hidden" name="page" value="<%=pg %>">
+	<input type="hidden" name="searchCondition" value="<%=sc%>">
+	<input type="hidden" name="keyword" value="<%=kw %>">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
