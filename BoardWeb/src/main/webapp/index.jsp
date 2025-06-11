@@ -24,7 +24,7 @@
 	} //end of for.
 		//여기는 자바영역이여요!
 	BoardService svc = new BoardServiceImpl();
-	List<BoardVo> list = svc.boardList(1);
+	List<BoardVo> list = svc.boardList(null);
 	out.print("<ul>");  //java영역내에서도 out.print("")를 사용해서 html사용가능!
 	for(BoardVo board : list){
 	%>

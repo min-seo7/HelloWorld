@@ -2,7 +2,6 @@
 <%@page import="com.yedam.vo.BoardVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../include/header.jsp" /><!-- 헤더파일 연결 -->
 <%
 BoardVo board = (BoardVo) request.getAttribute("board");
 String pg = (String)request.getAttribute("page");
@@ -60,4 +59,3 @@ String logId = (String) session.getAttribute("logId");
 				location.href = 'removeBoard.do?bno=' + bno;
 			})
 </script>
-<jsp:include page="../include/footer.jsp" />

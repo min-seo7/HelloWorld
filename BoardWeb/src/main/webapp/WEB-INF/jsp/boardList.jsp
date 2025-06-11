@@ -1,18 +1,9 @@
-<%@page import="com.yedam.common.SearchDTO"%>
-<%@page import="com.yedam.common.PageDTO"%>
-<%@page import="com.yedam.vo.BoardVo"%>
-<%@page import="java.util.List"%>
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../include/header.jsp"/>   <!-- 헤더파일 연결 -->
-	<%
-	List<BoardVo> list = (List<BoardVo>) request.getAttribute("blist");	 //getAttribute 반환타입은 object 타입임! 형변환 시켜줘야~ 
-	PageDTO paging = (PageDTO) request.getAttribute("pageInfo");
-	SearchDTO search = (SearchDTO) request.getAttribute("search");
-	
-	%>
-	<p><%=paging %></p>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  <!-- 헤더파일 연결 -->
+	<p>${pageInfo }${blist }${search }</p>
     <h3>게시글 목록</h3>
     
   <!-- 검색조건추가 -->  
@@ -21,21 +12,19 @@
       <div class="col-sm-4">  <!--col-sm-4는 화면 1/4차지-->
         <select name="searchCondition" class="form-control">
           <option value="">선택하세요</option>
-          <option value="T" <%=search.getSearchCondition() != null  && search.getSearchCondition().equals("T") ? "selected": "" %>>제목</option>
-          <option value="W" <%=search.getSearchCondition() != null  && search.getSearchCondition().equals("W") ? "selected": "" %>>작성자</option>
-          <option value="TW" <%=search.getSearchCondition() != null  && search.getSearchCondition().equals("TW") ? "selected": "" %>>제목&작성자</option>
+          <option value="T" ${!empty search.searchCondition && search.searchCondition =='T' ?'selected' : ''}>제목</option>   <!-- EL괄호안에는 메소드 사용불가. -->
+          <option value="W" ${!empty search.searchCondition && search.searchCondition =='W' ?'selected' : ''}>작성자</option>
+          <option value="TW" ${!empty search.searchCondition && search.searchCondition =='TW' ?'selected' : ''}>제목&작성자</option>
         </select>
       </div>
       <div class="col-sm-6">
-        <input type="text" name="keyword" class="form-control" value= "<%=search.getKeyword() != null ? search.getKeyword(): ""%>">
+        <input type="text" name="keyword" class="form-control" value= "${empty search.keyword ? '' : search.keyword }">
       </div>
       <div class="col-sm-2">
-        <input type="submit" value="검색" class="btn btn-primary"></intput>
+        <input type="submit" value="검색" class="btn btn-primary"></input>
       </div>
     </div> 
   </form>
-    
-    
     
     <table class ="table">
         <thead>
@@ -44,15 +33,15 @@
             </tr>
         </thead>
         <tbody>
-        <%for(BoardVo board : list) {%>
+        <c:forEach var="board" items="${blist }">
             <tr>
-                <td><a href="board.do?bno=<%=board.getBoardNO()%>&page=<%=paging.getCurrentPage()%>&keyword=<%=search.getKeyword()%>&searchCondition=<%=search.getSearchCondition() %>"><%=board.getBoardNO()%></a></td>
-                <td><%=board.getTitle() %></td>
-                <td><%=board.getWriter() %></td>
-                <td><%=board.getWriteDate() %></td>
-                <td><%=board.getReadCnt() %></td>
+              <td><a href="board.do?bno=${board.boardNO }&searchCondition=${search.searchCondition }&keyword=${search.keyword }&page=${pageInfo.currentPage}">${board.boardNO }</a></td>
+                <td>${board.title}</td>
+                <td><c:out value="${board.writer }"/></td>
+                <td><fmt:formatDate value="${board.writeDate }" pattern="yyyy-MM-dd"/></td>
+                <td><fmt:formatNumber value="${board.readCnt}" pattern="#,###"/></td>
             </tr>
-            <%} %>
+        </c:forEach>
         </tbody>
     </table>
     
@@ -64,47 +53,56 @@
 
 
 
-<!-- 이전페이지 활성화. -->
-<%if(!paging.isPrev()){ %>
-  <li class="page-item disabled">
-    <a class="page-link">Previous</a>
-  </li>
-  <%} else { %>
-  <li class="page-item">
-    <a class="page-link" href="boardList.do?page<%=paging.getStart() - 1 %>">Previous</a>
-  </li>
-  <%} %>
-  
+<!-- 이전페이지 활성화. choose when otherwise -->
+<c:choose>
+	<c:when test="${!pageInfo.prev }">
+	  <li class="page-item disabled">
+	    <a class="page-link">Previous</a>
+	  </li>
+	</c:when>
+	<c:otherwise>	
+	    <li class="page-item">
+	    <a class="page-link" href="boardList.do?page=${pageInfo.start - 1} ">Previous</a>
+	  </li>
+	</c:otherwise>
+</c:choose>
   
   
   
  <!-- 페이징 정보를 활용. -->
-  <%for(int p = paging.getStart(); p<= paging.getEnd(); p++) { %>
- <%if(p != paging.getCurrentPage()) {%>
- <li class="page-item">
- <a class="page-link" href="boardList.do?searchCondition=<%=search.getSearchCondition()%>&keyword=<%=search.getKeyword() %>&page=<%=p %>"><%=p %></a></li>
-  <%} else {%> 
-  <li class="page-item active" aria-current="page">
-    <span class="page-link"><%=p %></span>
-    </li>
- <%} }%>
+ <c:forEach var="p" begin="${pageInfo.start}" end="${pageInfo.end }" step="1">
+ 	<c:choose>
+ 		<c:when test="${pageInfo.currentPage ne p }">
+		 <li class="page-item">
+	 	<a class="page-link" href="boardList.do?searchCondition=${search.searchCondition }&keyword=${search.keyword }&page=${p}">${p}</a></li>
+ 		</c:when>
+ 		<c:otherwise>
+		  <li class="page-item active" aria-current="page">
+		    <span class="page-link"> ${p }</span>
+		  </li>
+ 		</c:otherwise>
+ 	</c:choose>
+ </c:forEach>
+ 
+ 
+ <!-- 이후 페이지 활성화 -->
+  <c:choose>
+  	<c:when test="${!pageInfo.next }">
+	  <li class="page-item disabled">
+	    <a class="page-link">Next</a>
+	  </li>
+	</c:when>
+	<c:otherwise>
+	  <li class="page-item">
+	    <a class="page-link" href="boardList.do?page=${pageInfo.end +1 }">Next</a>
+	  </li>
+	</c:otherwise>
+  </c:choose>
   
-  
-  
-  <!-- 이후페이지 활성화. -->
-  <%if(!paging.isNext()){ %>
-  <li class="page-item disabled">
-    <a class="page-link">Next</a>
-  </li>
-  <%} else { %>
-  <li class="page-item">
-    <a class="page-link" href="boardList.do?page=<%=paging.getEnd() + 1 %>">Next</a>
-  </li>
-  <%} %>
-  
+
   
 </ul>
 </nav>
     <!-- paging 종료. -->
     
-<jsp:include page="../include/footer.jsp" /> <!-- 푸터파일 연결 -->
+ <!-- 푸터파일 연결 -->

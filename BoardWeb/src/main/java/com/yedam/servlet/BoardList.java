@@ -44,7 +44,7 @@ public class BoardList extends HttpServlet {
 	
 		//업무서비스
 		BoardService svc = new BoardServiceImpl();
-		List<BoardVo> list = svc.boardList();
+		List<BoardVo> list = svc.boardList(null);
 		
 		out.print("<table border='1'");
 		out.print("<thead><tr><th>글번호</th><th>글제목</th><th>작성자</th></tr></thead>");

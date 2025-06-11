@@ -32,6 +32,6 @@ public class BoardControl implements Control {
 		req.setAttribute("searchCondition", sc);
 		req.setAttribute("keyword", kw);
 		// 요청재지정(페이지이동)=>보여지는 페이지
-		req.getRequestDispatcher("WEB-INF/jsp/board.jsp").forward(req, resp); // froward는 페이지 이동을 의미.
+		req.getRequestDispatcher("user/board.tiles").forward(req, resp); // froward는 페이지 이동을 의미.
 	}
 }

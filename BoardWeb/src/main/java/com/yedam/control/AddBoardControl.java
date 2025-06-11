@@ -21,7 +21,7 @@ public class AddBoardControl implements Control {
 		// 요청방식 get or post 구분처리
 		if (req.getMethod().equals("GET")) {
 			// Web-INF/jsp/addBoard.jsp
-			req.getRequestDispatcher("WEB-INF/jsp/addBoard.jsp").forward(req, resp);  
+			req.getRequestDispatcher("user/addBoard.tiles").forward(req, resp);  
 			
 		} else if (req.getMethod().equals("POST")) { // 등록
 			// post요청
