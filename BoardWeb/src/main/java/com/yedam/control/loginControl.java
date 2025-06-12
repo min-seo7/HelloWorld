@@ -28,6 +28,7 @@ public class loginControl implements Control {
 			//세션객체를 생성해, setAttribute("loginId", member.memberId) 
 			HttpSession session = req.getSession();   //cookie를 가지고 옴. 톰캣이 웹 브라우저에 접속이력으로 cookie를 심어둔.. 
 			session.setAttribute("logId", member.getMemberId());  //생성된 세션에 아이디담아둠. 
+			session.setAttribute("auth", member.getResponsibility());
 			//권한에 따라 시작페이지지정
 			if(member.getResponsibility().equals("User")) {
 				resp.sendRedirect("addBoard.do");				

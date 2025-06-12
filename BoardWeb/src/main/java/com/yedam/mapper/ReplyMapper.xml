@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.ReplyMapper">
+
+
+<!-- 댓글추가 -->
+<insert id="insertreply" parameterType="reply">
+	insert into tbl_reply (reply_no, board_no, reply, replyer)
+	values (reply_seq.nextval, #{boardNo}, #{reply}, #{replyer})
+</insert>
+
+
+<!--댓글목록 -->
+<select id="selectList" resultType="Reply" parameterType="int">
+	select *
+	from tbl_reply
+	where board_no = #{bno} 
+</select>
+
+<!-- 댓글조회 -->
+<select id="selectReply" resultType="Reply" parameterType="int">
+	select *
+	from tbl_reply
+	where reply_no = #{rno} 
+</select>
+
+<!-- 댓글삭제 -->
+<delete id="deletereply" parameterType="int">
+	delete from tbl_reply
+	where reply_no = #{rno} 
+</delete>
+
+
+</mapper>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-  <!-- 헤더파일 연결 -->
 	<p>${pageInfo }${blist }${search }</p>
     <h3>게시글 목록</h3>
     
@@ -104,5 +103,4 @@
 </ul>
 </nav>
     <!-- paging 종료. -->
-    
- <!-- 푸터파일 연결 -->
+ 

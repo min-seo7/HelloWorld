@@ -38,7 +38,7 @@
 	<!-- 등록(insertBoard) -->
 	<insert id="insertBoard" parameterType="Board">
 		insert into tbl_board (board_no, title, content, writer)
-		values(board_seq.nextval, #{title}, #{content}, #{writer})  <!--#{} 컬럼명을 
+		values(board_seq.nextval, #{title}, #{content}, #{writer})  <!--#{} vo필드명과 동일하게.  
 			작성해 주면됨. -->
 	</insert>
 

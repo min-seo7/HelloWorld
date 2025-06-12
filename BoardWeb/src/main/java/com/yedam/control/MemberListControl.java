@@ -24,7 +24,7 @@ public class MemberListControl implements Control {
 		req.setAttribute("memberList", list);
 		
 		//출력jsp 페이지
-		req.getRequestDispatcher("WEB-INF/jsp/member/memberList.jsp").forward(req, resp);
+		req.getRequestDispatcher("admin/memberList.tiles").forward(req, resp);   //.tiles는 타일즈 적용이 되어 메인 tiles파일로 넘어가서 개별경로 찾아감. (definition을 찾아서 다음 경로로 진행)
 	}
 
 }
