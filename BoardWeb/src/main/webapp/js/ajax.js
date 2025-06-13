@@ -36,37 +36,97 @@ setTimeout(function(){
 
 //객체.XMLHttpRequest
 console.log("start");
-let xhtp = new XMLHttpRequest();
+let xhtp = new XMLHttpRequest();   //ajax호출. 비동기방식. 
 xhtp.open('get', 'replyList.do?bno=707'); //페이지 요청.
 xhtp.send(); //페이지 요청. 
-xhtp.onload = function(){
+xhtp.onload = function() {
 	console.log(xhtp.responseText)
-	let data = JSON.parse(xhtp.responseText);
-	data.forEach(function(item){
-		console.log(item);
-		let tr = document.createElement('tr');//<tr></tr>==>이런형태의 요소를 만들어 줌. 
+	let data = JSON.parse(xhtp.responseText);   //json문자열을 자바스크립트 객체로 parsing
+	data.forEach(function(item) { 
+		//console.log(item);
+		let tr = makeRow(item);
+		//tr을 tboby에 추가.
 		
-		//글번호, 내용, 작성자
-		for(let prop of ['replyNo', 'reply','replyer']){
-		
-			let td = document.createElement('td');
-			td.innerHTML = item[prop]; // <-> 둘다 사용가능. item.'replyNo'
-			tr.appendChild(td);//<tr><td></td></tr> 자식으로 달기.	
-		}
-		//button생성.
-		let td = document.createElement('td');
-		let btn = document.createElement('button');
-		btn.innerHTML='삭제';
-		btn.className = 'btn btn-danger';
-		td.appendChild(btn);
-		tr.appendChild(td);
-		document.querySelector('tbody').appendChild(tr);	
-	});	
+		document.querySelector('table:nth-of-type(2) tbody').appendChild(tr);
+	});
 	//document.querySelector('#show').innerHTML = xhtp.responseText;
 };
+//댓글등록이벤트.
+document.querySelector('#addReply').addEventListener('click', addReplyFnc);
+
+//댓글등록함수.
+function addReplyFnc(e) {
+	const bno = document.querySelector('#bno').value;
+	const reply = document.querySelector('#reply').value;
+	//필수입력. 
+	if (!bno || !reply || !logId) {
+		alert('필수값 입력!');
+		return;
+	}
+	const addAjax = new XMLHttpRequest();
+	addAjax.open('get', 'addReply.do?bno=' + bno +'&reply=' + reply +'&replyer=' + logId); 
+	addAjax.send();
+	addAjax.onload = function(ev) {
+		let result = JSON.parse(addAjax.responseText);
+		if (result.retCode == 'Success') {
+			console.log(result.retVal);
+			alert('등록성공!');
+			let tr = makeRow(result.retVal);
+			//부모요소.insertBefore(새요소, 대상)
+			let target = document.querySelector('table:nth-of-type(2) tbody tr');
+			document.querySelector('table:nth-of-type(2) tbody').insertBefore(tr,target);
+		} else {
+			alert('등록실패!');
+		}
+	}
+}
 
 
-function memberList(){
+//댓글삭제함수
+function deleteReplyFnc(e) {
+	if(!confirm("삭제하시겠습니까?")){
+		return;
+	}
+	let rno = e.target.parentElement.parentElement.dataset.rno;
+	console.log(rno);
+	const delAjax = new XMLHttpRequest();
+	delAjax.open('get', 'removeReply.do?rno=' + rno);
+	delAjax.send();
+
+	delAjax.onload = function(ev) {
+		let result = JSON.parse(delAjax.responseText);
+		if (result.retCode == 'Success') {
+			e.target.parentElement.parentElement.remove(); //화면처리
+		} else {
+			alert('처리실패');
+		}
+	}
+}
+
+//댓글을 출력할 수 있도록 row 생성.
+function makeRow(item){
+	let tr = document.createElement('tr');//<tr></tr>==>이런형태의 요소를 만들어 줌. 
+			tr.setAttribute('data-rno', item.replyNo); //<tr data-rno="댓글번호">
+			//글번호, 내용, 작성자
+			for (let prop of ['replyNo', 'reply', 'replyer']) {
+
+				let td = document.createElement('td');
+				td.innerHTML = item[prop]; // <-> 둘다 사용가능. item.'replyNo'
+				tr.appendChild(td);//<tr><td></td></tr> 자식으로 달기.	
+			}
+			//button생성.
+			let td = document.createElement('td');
+			let btn = document.createElement('button');
+			btn.addEventListener('click', deleteReplyFnc);  //(이벤트 유형, 이벤트가 발생하면 실행할 함수.)
+			btn.innerHTML = '삭제';
+			btn.className = 'btn btn-danger';
+			td.appendChild(btn);
+			tr.appendChild(td);
+			return tr; //makeRow를 호출한 영역으로 tr반환. 
+}//end of makeRow;
+
+
+function memberList() {
 	//console.log("1");
 	//console.log(xhtp.responseText);
 	let data = JSON.parse(xhtp.responseText);
@@ -74,7 +134,7 @@ function memberList(){
 	let str = "<ul>";
 	data.forEach(function(item, idx, arr) {
 		console.log(xhtp.responseText);
-		str +="<li>" + item.id +"," + item.first_name +"</li>";
+		str += "<li>" + item.id + "," + item.first_name + "</li>";
 	});
 	str += "</ul>";
 	document.querySelector('#show').innerHTML = str;
