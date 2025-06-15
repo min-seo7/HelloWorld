@@ -47,9 +47,9 @@ public class AddReplyControl implements Control {
 			map.put("retCode", "Fail");
 			//resp.getWriter().print("{\"retCode\":\"Fail\"}");
 		}		
-		String json = gson.toJson(map);
-		System.out.println(json);
-		resp.getWriter().print(json);
+		String json = gson.toJson(map);   
+		System.out.println(json);			
+		resp.getWriter().print(json);		
 		
 	}
 
