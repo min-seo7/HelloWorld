@@ -4,8 +4,8 @@
 //svc객체의 add메소드.
 const svc = {
 	 //목록출력 메소드
-	 replyList(bno, successCallback, errorCallback){ 
-		fetch('replyList.do?bno=' + bno)
+	 replyList(param = {bno,page}, successCallback, errorCallback){ 
+		fetch('replyList.do?bno=' + param.bno + '&page=' + param.page)
 		.then(data => data.json())
 		.then(successCallback)
 		.catch(errorCallback)
@@ -29,6 +29,14 @@ const svc = {
 		 	 .then(data => data.json())
 			 .then(successCallback)
 			 .catch(errorCallback)
+	 },
+	 
+	 
+	 replyCount(bno, successCallback, errorCallback){
+		fetch('replyCount.do?bno=' +bno)
+		.then(data => data.json())
+		.then(successCallback)
+		.catch(errorCallback)
 	 }
 	 
 	 

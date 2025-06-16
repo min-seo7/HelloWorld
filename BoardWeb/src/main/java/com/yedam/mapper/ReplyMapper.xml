@@ -17,10 +17,14 @@
 
 <!--댓글목록 -->
 <select id="selectList" resultType="Reply" parameterType="int">
-	select *
-	from tbl_reply
-	where board_no = #{bno} 
-	
+	select a.*
+	from (select /*+INDEX_DESC (r pk_reply)*/ rownum rn, r.*
+	      from tbl_reply r
+	      where board_no = #{bno}) a
+	where a.rn > (#{page} - 1) * 5
+	<![CDATA[
+	and a.rn <= (#{page} * 5)
+	]]>
 </select>
 
 <!-- 댓글조회 -->
@@ -37,5 +41,11 @@
 	where reply_no = #{rno} 
 </delete>
 
+<!-- 댓글건수 -->
+<select id="selectTotal" parameterType="int" resultType="int">
+	select count(1)
+	from tbl_reply
+	where board_no = #{bno}
+</select> 
 
 </mapper>

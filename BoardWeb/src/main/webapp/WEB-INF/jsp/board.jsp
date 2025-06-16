@@ -2,60 +2,110 @@
 <%@page import="com.yedam.vo.BoardVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-BoardVo board = (BoardVo) request.getAttribute("board");
-String pg = (String)request.getAttribute("page");
-String sc = (String)request.getAttribute("searchCondition");
-String kw = (String)request.getAttribute("keyword");
-String logId = (String) session.getAttribute("logId");
-
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ 
 <h3>상세화면</h3>
 <form action="modifyBoard.do">
-	<input type="hidden" name="bno" value="<%=board.getBoardNO()%>">
-	<input type="hidden" name="page" value="<%=pg%>">
-	<input type="hidden" name="searchCondition" value="<%=sc%>">
-	<input type="hidden" name="keyword" value="<%=kw%>">
+	<input type="hidden" name="bno" value="${board.boardNO}">
+	<input type="hidden" name="page" value="${page}">
+	<input type="hidden" name="searchCondition" value="${SearchCondition}">
+	<input type="hidden" name="keyword" value="${keyword}">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
-			<td><%=board.getBoardNO()%></td>
+			<td>${board.boardNO}</td>
 			<th>조회수</th>
-			<td><%=board.getReadCnt()%></td>
+			<td>${board.readCnt}</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3"><%=board.getTitle()%></td>
+			<td colspan="3">${board.title }</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td colspan="3"><textarea readonly><%=board.getContent()%></textarea></td>
+			<td colspan="3"><textarea readonly>${board.content}</textarea></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td colspan="3"><%=board.getWriter()%></td>
+			<td colspan="3">${board.writer }</td>
 		</tr>
 		<tr>
 			<th>작성일시</th>
-			<td colspan="3"><%=board.getWriteDate()%></td>
+			<td colspan="3">${board.writeDate }</td>
 		</tr>
 		<tr>
-		<%if(board.getWriter().equals(logId)) { %>
+		<c:choose>
+			<c:when test="${board.writer != logId}">
 			   <td colspan="4" align="center"><input type="submit" value="수정" class="btn btn-warning">
-			   	<button class="btn btn-danger" type="button">삭제</button></td>
-			<%}else {%>
+			   <button class="btn btn-danger" type="button">삭제</button></td>
+			</c:when>
+			<c:otherwise>
 				<td colspan="4" align="center"><input type="submit" value="수정" class="btn btn-warning" disabled>
-				<button class="btn btn-danger" type="button" disabled>삭제</button></td>
-			<%} %>
+				<button class="btn btn-danger" type="button" disabled>삭제</button></td>			
+			</c:otherwise>
+		</c:choose>
 		</tr>
 	</table>
 </form>
 
+<!-- 댓글관련 페이지 -->
+<style>
+	div.reply ul {
+		list-style-type: none;
+	}
+	div.reply span{
+		display: inline-block;
+	}
+</style>
+<div class="container reply">
+	<div class="header">
+		<input class="col-sm-8" id="reply">
+		<button class="col-sm-3 btn btn-primary" id="addReply">등록</button>
+	</div>
+	<div class="content">
+	 <ul>
+		<li>
+		  <span class="col-sm-2">글번호</span>
+		  <span class="col-sm-4">글내용</span>
+		  <span class="col-sm-2">작성자</span>
+		  <span class="col-sm-2">작성일시</span>
+		  <span class="col-sm-1">삭제</span>
+		</li>
+	 </ul>
+	 <ul id="target">
+	 </ul>
+	</div>
+	<div class="footer">
+	<!-- 댓글 페이징 시작-->
+	<nav aria-label="...">
+		<ul class="pagination pagination-sm">
+		  <li class="page-item disabled">
+		    <span class="page-link">Previous</span>
+		  </li><!-- 이전. -->
+		  <li class="page-item"><a class="page-link" href="#">1</a></li>
+		  <li class="page-item active" aria-current="page">
+		    <span class="page-link">2</span>
+		  </li><!-- 이후. -->
+		  <li class="page-item"><a class="page-link" href="#">3</a></li>
+		  <li class="page-item">
+		    <a class="page-link" href="#">Next</a>
+		  </li>
+		</ul>
+		</nav>
+		<!-- 댓글 페이징 끝! -->
+	</div>
+</div>
+<!-- 댓글관련 페이지 -->
+
+
 <script>
-	let bno = "<%=board.getBoardNO()%>";
+	let bno = "${board.boardNO}";
+	let logId = "${logId}";
 	console.log(bno);
 	document.querySelector('button.btn-danger').addEventListener('click',
 			function() {
 				location.href = 'removeBoard.do?bno=' + bno;
 			})
 </script>
+<script src = "js/service.js"></script>
+<script src = "js/reply.js"></script>

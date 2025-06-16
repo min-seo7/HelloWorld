@@ -1,8 +1,6 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,27 +13,19 @@ import com.yedam.Service.ReplyServiceImpl;
 import com.yedam.common.Control;
 import com.yedam.vo.ReplyVo;
 
-public class ReplyListControl implements Control {
+public class ReplyInfoControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//ReplyList.do => json문자열 반환. 
-		
 		resp.setContentType("text/json;charset=utf-8");
-		
-		String bno = req.getParameter("bno");
-		String page = req.getParameter("page");
-		
+		// TODO Auto-generated method stub
+		String rno = req.getParameter("rno");
 		ReplyService svc = new ReplyServiceImpl();
-		List<ReplyVo> list = svc.replyList(Integer.parseInt(bno), Integer.parseInt(page));
-		
+		ReplyVo rvo = svc.getReply(Integer.parseInt(rno));
+
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(list);
-		System.out.println(json);
-		
-		PrintWriter out = resp.getWriter();
-		out.print(json);
-		
+		String json = gson.toJson(rvo);
+		resp.getWriter().print(json);
 	}
 
 }

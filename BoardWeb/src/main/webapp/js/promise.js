@@ -94,32 +94,27 @@ function addReplyFnc(e) {
 		alert('필수값 입력!');
 		return;
 	}
-	//ajax호출
-	fetch('addReply.do?bno=' + bno + '&reply=' + reply + '&replyer=' + logId)
-		.then(json => json.json()) //json객체를 자바스크립트 객체로 변경. 
-		.then(result => { //
-			if (data.retCode == 'Success') {
-				alert('등록성공!');
-				let tr = makeRow(data.retVal);
-				let target = document.querySelector('table:nth-of-type(2) tbody tr');
-				document.querySelector('table:nth-of-type(2) tbody').insertBefore(tr, target);
-			} else {
-				alert('등록실패!');
-			}
+	//ajax호출 (post방식)
+	fetch('addReply.do', {
+		     method: 'post',
+			 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			 body: 'bno=' + bno + '&reply' + reply +'&replyer=' + logId
+	}).then(json => json.json()) //json객체를 자바스크립트 객체로 변경. 
+			    .then(result => { //
+				if (result.retCode == 'Success') {
+					alert('등록성공!');
+					let tr = makeRow(result.retVal);
+					let target = document.querySelector('table:nth-of-type(2) tbody tr');
+					document.querySelector('table:nth-of-type(2) tbody').insertBefore(tr, target);
+				} else {
+					alert('등록실패!');
+				}
 		})
-		.catch(function(err) {
-			console.log(err);
-		})
-
-
-	//end of addReplyFnc
-
-
-
-	//댓글목록출력
+		.catch(err => console.log(err));
+	}	//end of addReplyFnc
 
 	//삭제함수.
-	function deletReplyFnc() {
+	function deletReplyFnc(e) {
 		if (!confirm("삭제하겠습니까?")) {
 			return;
 		}
@@ -156,7 +151,7 @@ function addReplyFnc(e) {
 			console.error(err);
 		})*/
 
-	}
+	}// end of deletReplyFnc
 
 
 	//댓글 한줄 row 생성. 
@@ -165,7 +160,6 @@ function addReplyFnc(e) {
 		tr.setAttribute('data-rno', item.replyNo); //<tr data-rno="댓글번호">
 		//글번호, 내용, 작성자
 		for (let prop of ['replyNo', 'reply', 'replyer']) {
-
 			let td = document.createElement('td');
 			td.innerHTML = item[prop]; // <-> 둘다 사용가능. item.'replyNo'
 			tr.appendChild(td);//<tr><td></td></tr> 자식으로 달기.	
@@ -179,5 +173,4 @@ function addReplyFnc(e) {
 		td.appendChild(btn);
 		tr.appendChild(td);
 		return tr; //makeRow를 호출한 영역으로 tr반환. 
-	}
-}//end of makeRow;
+	}//end of makeRow;
