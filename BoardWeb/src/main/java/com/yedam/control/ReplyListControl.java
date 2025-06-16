@@ -35,7 +35,5 @@ public class ReplyListControl implements Control {
 		
 		PrintWriter out = resp.getWriter();
 		out.print(json);
-		
 	}
-
 }

@@ -185,7 +185,5 @@ async function deleteReply(e) {
 		}
 		, err => console.log(err)
 	);// 삭제메소드.
-	
-	삭제하고, 목록글 확인, 목록이 없으면 이전페이지 이동???
 
 } // end of deleteReply.
