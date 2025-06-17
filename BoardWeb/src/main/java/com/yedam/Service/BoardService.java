@@ -1,9 +1,11 @@
 package com.yedam.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yedam.common.SearchDTO;
 import com.yedam.vo.BoardVo;
+import com.yedam.vo.EventVO;
 
 /*
  * 업무단위의 처리 ==> (ex. 신규사원등록을 하면 급여등 같이 하나의 덩어리 업무로 반영되도록)
@@ -17,4 +19,11 @@ public interface BoardService {
 	public boolean removeBoard(int bno);
 	
 	public int getTotalCount(SearchDTO search); //글 전체카운트 계산  => sql: selectCount
+	public List<Map> chartCount();
+	
+	
+	//이벤트
+	public List<EventVO> eventList();
+	public boolean addEvent(EventVO event);
+	public boolean removeEvent(EventVO event);
 }

@@ -63,9 +63,6 @@
 
 
 
-
-
-
 	<!-- 수정(updateBoard) -->
 	<update id="updateBoard" parameterType="Board">
 		update tbl_board
@@ -92,8 +89,6 @@
 	</delete>
 
 
-
-	
 	
 	<!-- 전체건수 -->
 	<select id ="selectCount" parameterType="Search" resultType="int">
@@ -110,5 +105,30 @@
 	</when>
     </choose>
 	</select>
+
+	<select id="selectUserByCount" resultType="map">
+		select writer, member_name as "memberName", count(1) as "cnt"
+		from tbl_board b
+		join tbl_member m
+		on b.writer = m.member_id
+		group by writer, member_name
+	</select>
+	
+<!-- ==================================================================================이벤트 -->
+	<select id="selectEventList" resultType="event">
+		select * from tbl_events
+	</select>
+
+	<insert id="insertEvent" parameterType="event">
+		insert into tbl_events (title, st, en)
+		values (#{title}, #{stard}, #{end});
+	</insert>
+	
+	<delete id="removeEvent" parameterType="event">
+		delete from tbl_events
+		where title = #{title}
+		and st = #{start}
+		and en = #{end};
+	</delete>
 
 </mapper>

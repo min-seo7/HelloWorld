@@ -11,6 +11,7 @@
   <typeAlias alias="Search" type="com.yedam.common.SearchDTO"/>
   <typeAlias alias="Member" type="com.yedam.vo.MemberVo"/>
   <typeAlias alias="Reply" type="com.yedam.vo.ReplyVo"/>
+   <typeAlias alias="Event" type="com.yedam.vo.EventVO"/>
   </typeAliases>
   
   <environments default="development">

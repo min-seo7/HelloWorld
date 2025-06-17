@@ -2,9 +2,7 @@ package com.yedam.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,34 +10,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yedam.Service.ReplyService;
-import com.yedam.Service.ReplyServiceImpl;
+import com.yedam.Service.BoardService;
+import com.yedam.Service.BoardServiceImpl;
 import com.yedam.common.Control;
-import com.yedam.vo.ReplyVo;
+import com.yedam.vo.EventVO;
 
-public class ReplyListControl implements Control {
+public class EventListControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//ReplyList.do => json문자열 반환. 
-		
 		resp.setContentType("text/json;charset=utf-8");
 		
-		String bno = req.getParameter("bno");
-		String page = req.getParameter("page");
+		String title = req.getParameter("title");
+		String start = req.getParameter("start");
+		String end = req.getParameter("end");
 		
-		ReplyService svc = new ReplyServiceImpl();
-		List<ReplyVo> list = svc.replyList(Integer.parseInt(bno), Integer.parseInt(page));
 		
-		//dataTable용.
-		Map<String, Object> map = new HashMap<>();
-		map.put("data", list);
+		BoardService svc = new BoardServiceImpl();
+		List<EventVO> list = svc.eventList();
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(map);
-		System.out.println(json);
+		String json = gson.toJson(list);
 		
 		PrintWriter out = resp.getWriter();
 		out.print(json);
+
 	}
+
 }

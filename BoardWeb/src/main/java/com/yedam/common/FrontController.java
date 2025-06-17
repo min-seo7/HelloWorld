@@ -11,15 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.AddBoardControl;
+import com.yedam.control.AddEventControl;
 import com.yedam.control.AddReplyControl;
 import com.yedam.control.AllControl;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.ChartControl;
+import com.yedam.control.ChartPageControl;
+import com.yedam.control.EventListControl;
 import com.yedam.control.GetReplyControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.MemberListControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.RemoveBoardControl;
+import com.yedam.control.RemoveEventControl;
 import com.yedam.control.RemoveReplyControl;
 import com.yedam.control.ReplyCountControl;
 import com.yedam.control.ReplyInfoControl;
@@ -47,6 +52,8 @@ public class FrontController extends HttpServlet {
 		map.put("/addBoard.do", new AddBoardControl());  //등록
 		map.put("/modifyBoard.do", new ModifyBoardControl());  //수정
 		map.put("/removeBoard.do", new RemoveBoardControl()); //삭제
+		map.put("/chart.do", new ChartControl());
+		map.put("/chartPage.do", new ChartPageControl());
 		//member관련.
 		map.put("/loginForm.do", new LoginFormControl()); //화면
 		map.put("/login.do", new loginControl()); //로그인기능
@@ -63,8 +70,15 @@ public class FrontController extends HttpServlet {
 		map.put("/getReply.do", new GetReplyControl());
 		map.put("/replyCount.do", new ReplyCountControl()); //댓글건수
 		map.put("/replyInfo.do", new ReplyInfoControl());
+		
+		
+		//events
+		map.put("/eventList.do", new EventListControl());
+		map.put("/addEvent.do", new AddEventControl());
+		map.put("/removeEvent.do", new RemoveEventControl());
+		
 	}
-
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // ~.do때마다 호출됨. 												
 		// url의 호출(http://localhost:8080/BoardWeb/boardList.do) -> 페이지 호출 ->control/
