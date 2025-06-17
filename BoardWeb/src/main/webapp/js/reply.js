@@ -165,9 +165,9 @@ function makeTemplate(reply ={}){
 
 //댓글삭제함수. 
 async function deleteReply(e) {
-	let rno = e.target.parentElement.parentElement.dataset.rno;
-	let data = await fetch('replyInfo.do?rno=' + rno);
-	let result = await data.json();
+	let rno = e.target.parentElement.parentElement.dataset.rno
+	let data = await fetch('replyInfo.do?rno=' + rno)
+	let result = await data.json()
 	if (result.replyer != logId) {
 		alert('권한없음!');
 		return;

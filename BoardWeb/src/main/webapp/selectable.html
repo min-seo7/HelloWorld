@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<script src='../dist/index.global.js'></script>
+<script src='dist/index.global.js'></script>
 <script>
+
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -17,7 +18,7 @@
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
       selectMirror: true,
-      select: function(arg) { //추가
+      select: function(arg) {
         var title = prompt('Event Title:');
         if (title) {
           calendar.addEvent({
@@ -29,23 +30,15 @@
         }
         calendar.unselect()
       },
-      eventClick: function(arg) { //삭제
+      eventClick: function(arg) {
+        console.log(arg) 
         if (confirm('Are you sure you want to delete this event?')) {
-        	fetch('removeEvent.do?title='+title+'&start'+start+'&end'+end)
-        	.then(data => data.json())
-        	.then(succeess)
-        	.catch(error)
-        	arg.event.remove()
+        arg.event.remove()
         }
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [ //리스트
-    	  fetch('eventList.do')
-      	  .then(data => data.json())
-      	  .then(succeess)
-      	  .catch(error)
-    	/*   
+      events: [
         {
           title: 'All Day Event',
           start: '2023-01-01'
@@ -99,7 +92,7 @@
           title: 'Click for Google',
           url: 'http://google.com/',
           start: '2023-01-28'
-        } */
+        }
       ]
     });
 

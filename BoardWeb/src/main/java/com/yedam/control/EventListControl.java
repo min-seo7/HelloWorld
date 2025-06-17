@@ -21,11 +21,6 @@ public class EventListControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/json;charset=utf-8");
 		
-		String title = req.getParameter("title");
-		String start = req.getParameter("start");
-		String end = req.getParameter("end");
-		
-		
 		BoardService svc = new BoardServiceImpl();
 		List<EventVO> list = svc.eventList();
 		

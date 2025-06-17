@@ -81,6 +81,7 @@ public class BoardServiceImpl implements BoardService {
 	public boolean addEvent(EventVO event) {
 		int r = mapper.insertEvent(event);
 		if(r == 1) {
+			sqlSession.commit();
 			return true; 			
 		}
 		return false; 
@@ -90,6 +91,7 @@ public class BoardServiceImpl implements BoardService {
 	public boolean removeEvent(EventVO event) {
 		int r = mapper.removeEvent(event);
 		if(r == 1) {
+			sqlSession.commit();
 			return true;			
 		}
 		return false;

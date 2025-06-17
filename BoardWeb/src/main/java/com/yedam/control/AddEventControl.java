@@ -41,9 +41,6 @@ public class AddEventControl implements Control {
 		} else {
 			resp.getWriter().print("{\"retCode\":\"Fail\"}");
 		}
-		String json = gson.toJson(map);
-		System.out.println(json);
-		resp.getWriter().print(json);	
 	}
 
 }
