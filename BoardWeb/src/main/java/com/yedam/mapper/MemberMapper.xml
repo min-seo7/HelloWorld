@@ -9,15 +9,15 @@
 	        ,member_name
 	        ,password
 	        ,responsibility
+	        ,img
 	  from tbl_member
 	  where member_id = #{id}
-	  and   password = #{pw}
-	   
+	  and password = #{pw}
 	</select>
 	
 	
 	<!-- 회원목록 -->
-	<select id="selectList" resultType="Member" parameterType="String">
+	<select id="selectList" resultType="Member" parameterType="string">
 		select member_id
 			  ,member_name
 			  ,password
@@ -26,5 +26,21 @@
 		order by ${order}
   </select>
   
+  <!-- 회원추가 -->
+  <insert id="insertMember" parameterType="Member">
+  	insert into tbl_member (member_id, member_name, password, img)
+  	values (#{memberId}, #{memberName}, #{password}, #{img}) <!-- insert는 필드명과 동일하게 -->
+  </insert>
+  
+  <!-- 동일아이디여부조회 /회원조회 필드명-->
+  <select id="selectMemberInfo" resultType="Member" parameterType="string">
+   select member_id
+	      ,member_name
+	      ,password
+	      ,responsibility
+	      ,img
+	from tbl_member
+	where member_id = #{id}  <!-- 파라미터로 받아오는거로 -->
+  </select>
   
 </mapper>

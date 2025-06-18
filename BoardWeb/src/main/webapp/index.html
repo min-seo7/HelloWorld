@@ -1,13 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html>  
+
 <head>
-<meta charset="UTF-8">
-<title>홈페이지에 잘왔쑵니다~!!</title>
+ <meta charset="UTF-8">
+ <title>홈페이지에 잘왔쑵니다~!!</title>
+ <link href="css/styles.css" rel="stylesheet" />
+ <script type="module" src="js/covid.js"></script>  <!-- type을 지정해줘야 [export&import]기능 사용가능.(covid&covid_module.js파일참고) -->
 </head>
 <body>
-  <h3>Welcome My Home!!!</h3>
-  <h2>안녕안녕안녕안녕안녕</h2>
-  <a href = "html/sample.html">sample페이지로 이동</a>
-  <a href = "servlet/boardList.serv">게시판목록으로 이동. </a>
+	 <h3>Welcome My Home!!!</h3>
+	 <h3>코로나19 센터정보 </h3>
+	 
+	<!-- <input id="centerName" type="text" >  --> 
+	 <select id="sido">
+	 	<option>선택하세요</option>
+	 </select>   
+	 <button class="btn btn-primary">조회</button> <!-- 검색란에 지역명(서울)검색시 해당지역만 출력될 수 있도록 필터! -->
+	 
+	 <table class="table">
+	 	<thead>
+	 		<tr>
+	 		<th>센터ID</th>
+	 		<th>센터이름</th>
+	 		<th>전화</th>
+	 		</tr>
+	 	</thead>
+ 	    <tbody id="centerList">  <!-- 데이터목록 출력위치. --> 
+ 	    </tbody>
+ 	    </table>
+	  <script>
+	  </script>  
 </body>
 </html>

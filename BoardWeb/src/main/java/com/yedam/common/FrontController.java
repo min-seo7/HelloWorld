@@ -29,8 +29,10 @@ import com.yedam.control.RemoveReplyControl;
 import com.yedam.control.ReplyCountControl;
 import com.yedam.control.ReplyInfoControl;
 import com.yedam.control.ReplyListControl;
+import com.yedam.control.checkControl;
 import com.yedam.control.loginControl;
 import com.yedam.control.logoutControl;
+import com.yedam.control.signUpControl;
 
 /*
  * M-V-C 중 Control역할.
@@ -47,6 +49,7 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		//boardList.do - 글목록 출력기능.
 		//처리순서가 중요.
+		//get파라미터는 url에서 대소문자확인 . 
 		map.put("/boardList.do", new BoardListControl());  //글목록
 		map.put("/board.do", new BoardControl()); //상세화면
 		map.put("/addBoard.do", new AddBoardControl());  //등록
@@ -58,6 +61,8 @@ public class FrontController extends HttpServlet {
 		map.put("/loginForm.do", new LoginFormControl()); //화면
 		map.put("/login.do", new loginControl()); //로그인기능
 		map.put("/logout.do", new logoutControl());
+		map.put("/signUp.do", new signUpControl());
+		map.put("/checkId.do", new checkControl());
 		//회원목록
 		map.put("/memberList.do", new MemberListControl());
 		//상품관련

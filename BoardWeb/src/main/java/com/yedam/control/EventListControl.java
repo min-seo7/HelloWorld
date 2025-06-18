@@ -29,7 +29,6 @@ public class EventListControl implements Control {
 		
 		PrintWriter out = resp.getWriter();
 		out.print(json);
-
 	}
 
 }
