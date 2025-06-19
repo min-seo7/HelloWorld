@@ -79,7 +79,7 @@ fetch(url) //import된 url주소에서 데이터 가지고 옴!
 		})*/
  });
  
- //배열요소 추가, 삭제~ [].push, [].unshift(), [].pop(), [].shift  => [].splice()
+/* //배열요소 추가, 삭제~ [].push, [].unshift(), [].pop(), [].shift  => [].splice()
  //reduce(); 배열에서만 쓰임. 
  let result = [1, 3, 5, 7].reduce(function(acc, elem, idx, ary){
 	console.log(acc, elem);  //
@@ -91,5 +91,5 @@ fetch(url) //import된 url주소에서 데이터 가지고 옴!
 	return acc; // <ul>
  }, document.querySelector('#target')); //초기값으로 배열도 가능[], 
  console.log('결과:', result);
- 
+ */
  

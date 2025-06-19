@@ -93,7 +93,7 @@ function deleteReplyFnc(e) {
 	delAjax.open('get', 'removeReply.do?rno=' + rno);
 	delAjax.send();
 
-	delAjax.onload = function(ev) {
+	delAjax.onload = function(e) {
 		let result = JSON.parse(delAjax.responseText);
 		if (result.retCode == 'Success') {
 			e.target.parentElement.parentElement.remove(); //화면처리
