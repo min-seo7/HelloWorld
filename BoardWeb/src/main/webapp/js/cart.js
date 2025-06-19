@@ -24,30 +24,52 @@ const cartItems = [{
 
 itemList(cartItems);
 const basket = {
-	// 장바구니 수량 변경.
-	changePNum(e) {
-		let updown = e.target;
-		let subdiv = updown.closest('div.subdiv')
-		let pPrice = subdiv.querySelector('input[name="p_price"]').value;
-		let pnum = subdiv.querySelector('input[name="p_num"]').value;
+	// 장바구니 수량 변경.  장바구니배열에서 해당 상품명 찾아서 수량변경 && 가격반영
+	changePNum(e) { //이벤트 타겟의 부모라인 거슬러 올라가서 각 요소 찾기.
+		let updown = e.target; // i태그 up or down.
+		let row = updown.closest('.row.data');
+		let pname = row.querySelector('.pname span').textContent;//span태그는 value가 없음! 
+		let price = row.querySelector('.p_price').value;//가격
+		let qty = row.querySelector('.p_num'); 
+		let each = parseInt(qty.value); //현수량
+
 		
+		
+		if(updown.classList.contains('down') && each > 1){
+			each--;
+		}else{
+			each++;
+		}
+		
+		qty.value = each;
+		
+		for(let i = 0; i < cartItems.length; i++){
+			if(cartItems[i].itemName == pname){
+				cartItems[i].qty = each;
+			}
+		}
 		
 	},
 	// 상품삭제.
 	delItem(e) {
-		 document.querySelector('.abutton').addEventListener('click', function(e){
-				console.log(e.target);
-			e.target.parentElement.parentElement.parentElement.remove();
-		})
-	
+		let btn = e.target;
+		btn.closest('.row.data').remove();  //부모요소찾기 closest ==> 활용해서 부모요소로 거슬러 올라가 자식도 찾을 수 있음. 
+		
 	},
 	// 선택상품삭제.
 	delCheckedItem(e) {
-		
+	 	let checked = document.querySelectorAll('input[type=checkbox]:checked');  //querySelectorAll은 배열??처럼 관련된것 다 담고 있음. 
+		console.log(checked); //
+		for(let i = 0; i < checked.length; i++){
+			checked[i].closest('.row.data').remove();
+		}
 	},
 	// 장바구니 비우기.
 	delAllItem(e) {
-				
+		let allList = document.querySelectorAll('.row.data');
+		for (let i = 0; i < allList.length; i++){
+			allList[i].remove();
+		}		
 	}
 }
 
@@ -70,11 +92,11 @@ function  maketemplete(item){  //목록템플릿.
 	                <div class="subdiv">
 	                    <div class="check"><input type="checkbox" name="buy" value="260" checked="">&nbsp;</div>
 	                    <div class="img"><img src="./images/basket1.jpg" width="60"></div>
-	                    <div class="pname"> <span>${item.itemName}</span> </div>
+	                    <div class="pname"><span>${item.itemName}</span> </div>
 	                </div>
 	                <div class="subdiv">
 	                    <div class="basketprice">
-	                        <input type="hidden" name="p_price" id="p_price1" class="p_price" value="${item.price}">${item.price}원
+	                        <input type="hidden" name="p_price" id="p_price${item.itemId}" class="p_price" value="${item.price}">${item.price}원
 	                    </div>
 	                    <div class="num">
 	                        <div class="updown">
@@ -86,7 +108,7 @@ function  maketemplete(item){  //목록템플릿.
 	                                <i class="fas fa-arrow-alt-circle-down down"></i> </span>
 	                        </div>
 	                    </div>
-	                    <div class="sum">${item.price * item.qyc}}</div>
+	                    <div class="sum">40,000원</div>
 	                </div>
 	                <div class="subdiv">
 	                    <div class="basketcmd">

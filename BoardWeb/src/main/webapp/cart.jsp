@@ -36,7 +36,7 @@
                 <div class="split"></div>
             </div>
 	<!-- 상품목록 -->
-         <div class="row data" data-id="1">
+      <!--   <div class="row data" data-id="1">
                 <div class="subdiv">
                     <div class="check"><input type="checkbox" name="buy" value="260" checked="">&nbsp;</div>
                     <div class="img"><img src="./images/basket1.jpg" width="60"></div>
@@ -63,8 +63,8 @@
                         <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a>
                     </div>
                 </div>
-            </div>
-		</div>
+            </div> -->
+		</div>  
 <!-- 목록 -->
         <div class="right-align basketrowcmd">
             <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delCheckedItem();">선택상품삭제</a>
